@@ -1,1 +1,664 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RainPomelo Shrine | Too lazy to talk. Too cute to ignore.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f8faf7;
+            --bg-secondary: #e8f5e8;
+            --accent-mint: #9ed9a3;
+            --accent-sage: #7fb069;
+            --text-primary: #4a5c57;
+            --text-secondary: #6b7b76;
+            --shadow-soft: rgba(126, 176, 105, 0.15);
+            --gradient-main: linear-gradient(135deg, #f8faf7 0%, #e8f5e8 100%);
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: var(--gradient-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ctext y='20' font-size='20'%3E🍃%3C/text%3E%3C/svg%3E"), auto;
+            overflow-x: hidden;
+        }
+
+        .floating-leaves {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .leaf {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-gif {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--accent-mint);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px var(--shadow-soft);
+            animation: gentle-bounce 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-gif::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes gentle-bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-sage), var(--accent-mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .lazy-button {
+            background: var(--accent-mint);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-family: inherit;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px var(--shadow-soft);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lazy-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px var(--shadow-soft);
+            background: var(--accent-sage);
+        }
+
+        .lazy-button:active {
+            transform: translateY(0px);
+        }
+
+        /* Content Sections */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            margin: 6rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--accent-sage);
+            position: relative;
+        }
+
+        .section h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent-mint);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px var(--shadow-soft);
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-avatar {
+            width: 150px;
+            height: 150px;
+            background: var(--bg-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto;
+        }
+
+        .bio-list {
+            list-style: none;
+        }
+
+        .bio-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .bio-list strong {
+            color: var(--accent-sage);
+            min-width: 100px;
+        }
+
+        /* GIF Gallery */
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gif-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 10px 30px var(--shadow-soft);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gif-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 50px var(--shadow-soft);
+        }
+
+        .gif-placeholder {
+            width: 100%;
+            height: 150px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .mood-tag {
+            background: var(--accent-mint);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        /* Lazy Generator */
+        .lazy-generator {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 60px var(--shadow-soft);
+        }
+
+        .generator-result {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            display: none;
+        }
+
+        .generator-result.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--accent-sage);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 6rem;
+        }
+
+        .footer a {
+            color: var(--accent-mint);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .about-card {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+            }
+
+            .gif-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .section {
+                margin: 4rem 0;
+            }
+        }
+
+        /* Rain Mode */
+        .rain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+            display: none;
+        }
+
+        .rain-overlay.active {
+            display: block;
+        }
+
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(transparent, var(--accent-mint));
+            animation: rain-fall 1s linear infinite;
+        }
+
+        @keyframes rain-fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .toggle-rain {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-mint);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 10;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-rain:hover {
+            background: var(--accent-sage);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Leaves Background -->
+    <div class="floating-leaves" id="floatingLeaves"></div>
+
+    <!-- Rain Toggle -->
+    <button class="toggle-rain" onclick="toggleRain()">🌧️ Rain Mode</button>
+
+    <!-- Rain Overlay -->
+    <div class="rain-overlay" id="rainOverlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-gif">
+            🍊💤
+        </div>
+        <h1>Welcome to RainPomelo's World</h1>
+        <p>Just vibes. No stress.</p>
+        <button class="lazy-button" onclick="scrollToContent()">Enter... I guess 🍃</button>
+    </section>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- About Section -->
+        <section class="section" id="about">
+            <h2>About RainPomelo</h2>
+            <div class="about-card">
+                <div class="about-avatar">🍊✨</div>
+                <div>
+                    <ul class="bio-list">
+                        <li><strong>Species:</strong> ✨ Pomelo spirit blob</li>
+                        <li><strong>Hobby:</strong> ✨ Doing absolutely nothing</li>
+                        <li><strong>Phrase:</strong> "Ughhh... so sleepy..."</li>
+                        <li><strong>Mood:</strong> Perpetually exhausted but cute</li>
+                        <li><strong>Powers:</strong> Making everyone want to nap</li>
+                    </ul>
+                    <p style="margin-top: 1.5rem; font-style: italic;">
+                        Born from the collective desire to just... not today, RainPomelo represents 
+                        that perfect balance of emotional cuteness and social burnout. A gentle 
+                        reminder that it's okay to be soft, sleepy, and absolutely adorable while 
+                        avoiding all responsibilities.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- GIF Gallery -->
+        <section class="section" id="gallery">
+            <h2>GIF Gallery</h2>
+            <div class="gif-grid">
+                <div class="gif-item">
+                    <div class="gif-placeholder">📚💤</div>
+                    <span class="mood-tag">🍃 Chill</span>
+                    <p>Reading is hard work...</p>
+                </div>
+                <div class="gif-item">
+                    <div class="gif-placeholder">🛏️😴</div>
+                    <span class="mood-tag">💤 Sleepy</span>
+                    <p>Five more minutes...</p>
+                </div>
+                <div class="gif-item">
+                    <div class="gif-placeholder">🛍️😫</div>
+                    <span class="mood-tag">🛍️ Whiny</span>
+                    <p>But I don't wanna...</p>
+                </div>
+                <div class="gif-item">
+                    <div class="gif-placeholder">😤💨</div>
+                    <span class="mood-tag">😤 Mad</span>
+                    <p>Hmph! So annoying!</p>
+                </div>
+                <div class="gif-item">
+                    <div class="gif-placeholder">🫠💧</div>
+                    <span class="mood-tag">🫠 Melted</span>
+                    <p>I can't even...</p>
+                </div>
+                <div class="gif-item">
+                    <div class="gif-placeholder">🍊🌈</div>
+                    <span class="mood-tag">✨ Magical</span>
+                    <p>Rare motivated moment</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lazy Generator -->
+        <section class="section" id="generator">
+            <h2>Lazy Generator</h2>
+            <div class="lazy-generator">
+                <h3>How lazy are you today?</h3>
+                <p>Let RainPomelo judge your current energy levels...</p>
+                <button class="lazy-button" onclick="generateLaziness()" style="margin: 2rem 0;">
+                    Judge My Laziness 🍊
+                </button>
+                <div class="generator-result" id="lazyResult">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🍊💤</div>
+                    <h4 id="lazyTitle">You are: 90% nap, 10% guilt</h4>
+                    <p id="lazyMessage">RainPomelo is impressed by your dedication to doing nothing. Truly inspirational.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Made with 🍊 and absolutely zero productivity.</p>
+        <p style="margin-top: 1rem;">
+            <a href="#">Download RainPomelo Sticker Pack</a> | 
+            <a href="#">Visit Original Creator</a>
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+            "In a world of hustle culture, be a RainPomelo." 🍃
+        </p>
+    </footer>
+
+    <script>
+        // Floating leaves animation
+        function createFloatingLeaves() {
+            const container = document.getElementById('floatingLeaves');
+            const leaves = ['🍃', '🌿', '🍊', '💤'];
+            
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const leaf = document.createElement('div');
+                    leaf.className = 'leaf';
+                    leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
+                    leaf.style.left = Math.random() * 100 + '%';
+                    leaf.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                    leaf.style.animationDelay = Math.random() * 2 + 's';
+                    container.appendChild(leaf);
+                    
+                    setTimeout(() => {
+                        leaf.remove();
+                    }, 20000);
+                }
+            }, 3000);
+        }
+
+        // Scroll animations
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.section').forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Smooth scroll to content
+        function scrollToContent() {
+            document.getElementById('about').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Lazy generator
+        function generateLaziness() {
+            const titles = [
+                "You are: 95% nap, 5% regret",
+                "You are: 87% couch, 13% snacks",
+                "You are: 92% blanket, 8% motivation",
+                "You are: 78% sleepy, 22% guilty",
+                "You are: 99% tired, 1% trying",
+                "You are: 85% horizontal, 15% hope"
+            ];
+            
+            const messages = [
+                "RainPomelo nods approvingly. Peak laziness achieved.",
+                "Even RainPomelo is impressed by your commitment to doing nothing.",
+                "You've mastered the art of productive procrastination.",
+                "RainPomelo whispers: 'Same, honestly.'",
+                "Your energy levels are perfectly calibrated for maximum comfort.",
+                "RainPomelo declares you an honorary member of the Sleepy Club."
+            ];
+            
+            const result = document.getElementById('lazyResult');
+            const title = document.getElementById('lazyTitle');
+            const message = document.getElementById('lazyMessage');
+            
+            const randomTitle = titles[Math.floor(Math.random() * titles.length)];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            
+            title.textContent = randomTitle;
+            message.textContent = randomMessage;
+            
+            result.classList.remove('show');
+            setTimeout(() => {
+                result.classList.add('show');
+            }, 100);
+        }
+
+        // Rain mode
+        function toggleRain() {
+            const rainOverlay = document.getElementById('rainOverlay');
+            rainOverlay.classList.toggle('active');
+            
+            if (rainOverlay.classList.contains('active')) {
+                startRain();
+            } else {
+                stopRain();
+            }
+        }
+
+        let rainInterval;
+        function startRain() {
+            const rainOverlay = document.getElementById('rainOverlay');
+            
+            rainInterval = setInterval(() => {
+                const drop = document.createElement('div');
+                drop.className = 'raindrop';
+                drop.style.left = Math.random() * 100 + '%';
+                drop.style.animationDelay = Math.random() * 1 + 's';
+                drop.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+                rainOverlay.appendChild(drop);
+                
+                setTimeout(() => {
+                    drop.remove();
+                }, 2000);
+            }, 100);
+        }
+
+        function stopRain() {
+            clearInterval(rainInterval);
+            document.getElementById('rainOverlay').innerHTML = '';
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingLeaves();
+            observeElements();
+        });
+
+        // GIF item interactions
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.gif-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    item.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        item.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
