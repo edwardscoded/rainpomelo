@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -292,6 +291,70 @@
             box-shadow: 0 20px 60px var(--shadow-soft);
         }
 
+        .quiz-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .question-card {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        .question-card h4 {
+            color: var(--accent-sage);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .answer-btn {
+            background: white;
+            border: 2px solid var(--accent-mint);
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-align: left;
+        }
+
+        .answer-btn:hover {
+            background: var(--accent-mint);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-mint), var(--accent-sage));
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
         .generator-result {
             margin: 2rem 0;
             padding: 2rem;
@@ -303,6 +366,38 @@
         .generator-result.show {
             display: block;
             animation: fadeInUp 0.5s ease;
+        }
+
+        .score-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-sage);
+            margin: 1rem 0;
+        }
+
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .score-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .score-item .emoji {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-item .percentage {
+            font-weight: bold;
+            color: var(--accent-sage);
         }
 
         @keyframes fadeInUp {
@@ -495,17 +590,135 @@
 
         <!-- Lazy Generator -->
         <section class="section" id="generator">
-            <h2>Lazy Generator</h2>
+            <h2>Laziness Assessment</h2>
             <div class="lazy-generator">
-                <h3>How lazy are you today?</h3>
-                <p>Let RainPomelo judge your current energy levels...</p>
-                <button class="lazy-button" onclick="generateLaziness()" style="margin: 2rem 0;">
-                    Judge My Laziness 🍊
-                </button>
-                <div class="generator-result" id="lazyResult">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">🍊💤</div>
-                    <h4 id="lazyTitle">You are: 90% nap, 10% guilt</h4>
-                    <p id="lazyMessage">RainPomelo is impressed by your dedication to doing nothing. Truly inspirational.</p>
+                <div class="quiz-container">
+                    <div id="quizStart">
+                        <h3>How lazy are you today?</h3>
+                        <p>Let RainPomelo scientifically analyze your laziness levels through this totally legitimate quiz...</p>
+                        <button class="lazy-button" onclick="startQuiz()" style="margin: 2rem 0;">
+                            Begin Laziness Assessment 🍊
+                        </button>
+                    </div>
+
+                    <div id="quizProgress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p><span id="currentQ">1</span> of <span id="totalQ">7</span> questions</p>
+                    </div>
+
+                    <!-- Question 1 -->
+                    <div class="question-card" id="q1">
+                        <h4>🛏️ It's 10 AM on a Saturday. What's your current position?</h4>
+                        <div class="answer-options">
+                            <button class="answer-btn" onclick="selectAnswer(1, 5)">Still in bed, debating if I need to pee badly enough to get up</button>
+                            <button class="answer-btn" onclick="selectAnswer(1, 3)">On the couch in pajamas, contemplating breakfast</button>
+                            <button class="answer-btn" onclick="selectAnswer(1, 1)">Fully dressed and productive (RainPomelo is concerned)</button>
+                            <button class="answer-btn" onclick="selectAnswer(1, 4)">Bed → bathroom → back to bed (the perfect cycle)</button>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="question-card" id="q2">
+                        <h4>📱 Your phone is at 5% battery. Your charger is across the room. You...</h4>
+                        <div class="answer-options">
+                            <button class="answer-btn" onclick="selectAnswer(2, 5)">Accept your fate and let it die. Peace at last.</button>
+                            <button class="answer-btn" onclick="selectAnswer(2, 3)">Calculate if you REALLY need it for the next few hours</button>
+                            <button class="answer-btn" onclick="selectAnswer(2, 1)">Immediately get up and charge it like a responsible adult</button>
+                            <button class="answer-btn" onclick="selectAnswer(2, 4)">Ask someone else to bring you the charger</button>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="question-card" id="q3">
+                        <h4>🍕 Dinner time approaches. Your energy level for cooking is...</h4>
+                        <div class="answer-options">
+                            <button class="answer-btn" onclick="selectAnswer(3, 5)">Negative. Cereal is a meal, right?</button>
+                            <button class="answer-btn" onclick="selectAnswer(3, 4)">Microwave popcorn counts as cooking</button>
+                            <button class="answer-btn" onclick="selectAnswer(3, 2)">Maybe I'll order delivery... or just snack</button>
+                            <button class="answer-btn" onclick="selectAnswer(3, 1)">I have a meal planned and ingredients ready</button>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="question-card" id="q4">
+                        <h4>🧺 Your laundry basket is full. Your response?</h4>
+                        <div class="answer-options">
+                            <button class="answer-btn" onclick="selectAnswer(4, 5)">Wear clothes inside-out. Innovation!</button>
+                            <button class="answer-btn" onclick="selectAnswer(4, 4)">Buy new underwear instead of doing laundry</button>
+                            <button class="answer-btn" onclick="selectAnswer(4, 2)">Do the sniff test and rewear the 'clean enough' items</button>
+                            <button class="answer-btn" onclick="selectAnswer(4, 1)">Actually do the laundry like a functioning adult</button>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="question-card" id="q5">
+                        <h4>💼 You have a task due tomorrow. Today you will...</h4>
+                        <div class="answer-options">
+                            <button class="answer-btn" onclick="selectAnswer(5, 5)">Think about it intensely while doing literally anything else</button>
+                            <button class="answer-btn" onclick="selectAnswer(5, 4)">Open the document, stare at it, then close it</button>
+                            <button class="answer-btn" onclick="selectAnswer(5, 3)">Do 30% of it and call it 'good progress'</button>
+                            <button class="answer-btn" onclick="selectAnswer(5, 1)">Actually complete it early (RainPomelo doesn't understand you)</button>
+                        </div>
+                    </div>
+
+                    <!-- Question 6 -->
+                    <div class="question-card" id="q6">
+                        <h4>🚿 Your ideal shower duration when you have nowhere to be?</h4>
+                        <div class="answer-options">
+                            <button class="answer-btn" onclick="selectAnswer(6, 5)">45+ minutes. It's my meditation chamber.</button>
+                            <button class="answer-btn" onclick="selectAnswer(6, 4)">Until the hot water runs out, then 5 more minutes</button>
+                            <button class="answer-btn" onclick="selectAnswer(6, 2)">15-20 minutes of reasonable relaxation</button>
+                            <button class="answer-btn" onclick="selectAnswer(6, 1)">Quick and efficient, 5-10 minutes max</button>
+                        </div>
+                    </div>
+
+                    <!-- Question 7 -->
+                    <div class="question-card" id="q7">
+                        <h4>🎬 Netflix asks "Are you still watching?" You...</h4>
+                        <div class="answer-options">
+                            <button class="answer-btn" onclick="selectAnswer(7, 5)">Feel personally attacked but click 'Continue Watching'</button>
+                            <button class="answer-btn" onclick="selectAnswer(7, 4)">Take it as a sign to start a new series</button>
+                            <button class="answer-btn" onclick="selectAnswer(7, 2)">Actually stop and do something productive</button>
+                            <button class="answer-btn" onclick="selectAnswer(7, 3)">Fall asleep and let it auto-play whatever</button>
+                        </div>
+                    </div>
+
+                    <div class="generator-result" id="lazyResult">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🍊💤</div>
+                        <h4>Your Laziness Assessment Results</h4>
+                        <div class="score-display" id="totalScore">85%</div>
+                        <h4 id="lazyTitle">Certified Couch Potato</h4>
+                        <p id="lazyMessage">RainPomelo is impressed by your dedication to the art of doing nothing.</p>
+                        
+                        <div class="score-breakdown">
+                            <div class="score-item">
+                                <span class="emoji">💤</span>
+                                <div class="percentage" id="sleepScore">90%</div>
+                                <small>Sleepy</small>
+                            </div>
+                            <div class="score-item">
+                                <span class="emoji">🛋️</span>
+                                <div class="percentage" id="couchScore">85%</div>
+                                <small>Couch-bound</small>
+                            </div>
+                            <div class="score-item">
+                                <span class="emoji">🍕</span>
+                                <div class="percentage" id="effortScore">75%</div>
+                                <small>Low Effort</small>
+                            </div>
+                            <div class="score-item">
+                                <span class="emoji">📱</span>
+                                <div class="percentage" id="procrastScore">95%</div>
+                                <small>Procrastination</small>
+                            </div>
+                        </div>
+
+                        <button class="lazy-button" onclick="resetQuiz()" style="margin-top: 2rem;">
+                            Take Quiz Again 🔄
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -571,40 +784,112 @@
             });
         }
 
-        // Lazy generator
+        // Quiz functionality
+        let currentQuestion = 0;
+        let quizAnswers = [];
+        const totalQuestions = 7;
+
+        function startQuiz() {
+            document.getElementById('quizStart').style.display = 'none';
+            document.getElementById('quizProgress').style.display = 'block';
+            document.getElementById('q1').classList.add('active');
+            updateProgress();
+        }
+
+        function selectAnswer(questionNum, score) {
+            quizAnswers[questionNum - 1] = score;
+            
+            // Hide current question
+            document.getElementById(`q${questionNum}`).classList.remove('active');
+            
+            // Show next question or results
+            if (questionNum < totalQuestions) {
+                currentQuestion = questionNum;
+                document.getElementById(`q${questionNum + 1}`).classList.add('active');
+                updateProgress();
+            } else {
+                // Quiz complete, show results
+                calculateResults();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQ').textContent = currentQuestion + 1;
+            document.getElementById('totalQ').textContent = totalQuestions;
+        }
+
+        function calculateResults() {
+            const totalScore = quizAnswers.reduce((sum, score) => sum + score, 0);
+            const maxScore = totalQuestions * 5;
+            const percentage = Math.round((totalScore / maxScore) * 100);
+            
+            // Hide progress
+            document.getElementById('quizProgress').style.display = 'none';
+            
+            // Calculate individual scores (with some randomization for fun)
+            const sleepScore = Math.min(100, percentage + Math.floor(Math.random() * 20) - 10);
+            const couchScore = Math.min(100, percentage + Math.floor(Math.random() * 15) - 5);
+            const effortScore = Math.max(0, percentage - Math.floor(Math.random() * 25));
+            const procrastScore = Math.min(100, percentage + Math.floor(Math.random() * 10));
+            
+            // Determine title and message based on score
+            let title, message;
+            if (percentage >= 90) {
+                title = "Supreme Laziness Deity 👑";
+                message = "RainPomelo bows in reverence. You've achieved enlightenment through the art of doing absolutely nothing. Teach us your ways, master.";
+            } else if (percentage >= 75) {
+                title = "Certified Couch Potato 🛋️";
+                message = "RainPomelo is deeply impressed. You've mastered the delicate balance of maximum comfort with minimum effort. Inspirational.";
+            } else if (percentage >= 60) {
+                title = "Professional Procrastinator 📱";
+                message = "RainPomelo nods approvingly. You know how to prioritize what's important: absolutely nothing urgent.";
+            } else if (percentage >= 40) {
+                title = "Casual Sloth 🦥";
+                message = "RainPomelo thinks you're doing okay, but there's room for improvement in the laziness department. More naps needed.";
+            } else if (percentage >= 25) {
+                title = "Suspiciously Motivated 🤔";
+                message = "RainPomelo is concerned about your energy levels. Are you feeling alright? Maybe you need to sit down and do nothing for a while.";
+            } else {
+                title = "Productivity Monster 😱";
+                message = "RainPomelo doesn't understand you at all. How do you have so much energy? This is deeply unsettling. Please rest immediately.";
+            }
+            
+            // Update results display
+            document.getElementById('totalScore').textContent = percentage + '%';
+            document.getElementById('lazyTitle').textContent = title;
+            document.getElementById('lazyMessage').textContent = message;
+            document.getElementById('sleepScore').textContent = sleepScore + '%';
+            document.getElementById('couchScore').textContent = couchScore + '%';
+            document.getElementById('effortScore').textContent = effortScore + '%';
+            document.getElementById('procrastScore').textContent = procrastScore + '%';
+            
+            // Show results
+            document.getElementById('lazyResult').classList.add('show');
+        }
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            quizAnswers = [];
+            
+            // Hide results
+            document.getElementById('lazyResult').classList.remove('show');
+            
+            // Hide all questions
+            for (let i = 1; i <= totalQuestions; i++) {
+                document.getElementById(`q${i}`).classList.remove('active');
+            }
+            
+            // Show start screen
+            document.getElementById('quizStart').style.display = 'block';
+            document.getElementById('quizProgress').style.display = 'none';
+        }
+
+        // Lazy generator (keeping old function for backwards compatibility)
         function generateLaziness() {
-            const titles = [
-                "You are: 95% nap, 5% regret",
-                "You are: 87% couch, 13% snacks",
-                "You are: 92% blanket, 8% motivation",
-                "You are: 78% sleepy, 22% guilty",
-                "You are: 99% tired, 1% trying",
-                "You are: 85% horizontal, 15% hope"
-            ];
-            
-            const messages = [
-                "RainPomelo nods approvingly. Peak laziness achieved.",
-                "Even RainPomelo is impressed by your commitment to doing nothing.",
-                "You've mastered the art of productive procrastination.",
-                "RainPomelo whispers: 'Same, honestly.'",
-                "Your energy levels are perfectly calibrated for maximum comfort.",
-                "RainPomelo declares you an honorary member of the Sleepy Club."
-            ];
-            
-            const result = document.getElementById('lazyResult');
-            const title = document.getElementById('lazyTitle');
-            const message = document.getElementById('lazyMessage');
-            
-            const randomTitle = titles[Math.floor(Math.random() * titles.length)];
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            
-            title.textContent = randomTitle;
-            message.textContent = randomMessage;
-            
-            result.classList.remove('show');
-            setTimeout(() => {
-                result.classList.add('show');
-            }, 100);
+            // This function is now replaced by the quiz, but keeping it just in case
+            startQuiz();
         }
 
         // Rain mode
