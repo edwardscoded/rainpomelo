@@ -1,646 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RainPomelo Shrine | Too lazy to talk. Too cute to ignore.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-primary: #f8faf7;
-            --bg-secondary: #e8f5e8;
-            --accent-mint: #9ed9a3;
-            --accent-sage: #7fb069;
-            --text-primary: #4a5c57;
-            --text-secondary: #6b7b76;
-            --shadow-soft: rgba(126, 176, 105, 0.15);
-            --gradient-main: linear-gradient(135deg, #f8faf7 0%, #e8f5e8 100%);
-        }
-
-        body {
-            font-family: 'Noto Sans SC', 'Quicksand', sans-serif;
-            background: var(--gradient-main);
-            color: var(--text-primary);
-            line-height: 1.6;
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ctext y='20' font-size='20'%3E🍃%3C/text%3E%3C/svg%3E"), auto;
-            overflow-x: hidden;
-        }
-
-        body[data-lang="en"] {
-            font-family: 'Quicksand', 'Noto Sans SC', sans-serif;
-        }
-
-        .floating-leaves {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .leaf {
-            position: absolute;
-            font-size: 20px;
-            opacity: 0.3;
-            animation: float 15s infinite linear;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-gif {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: var(--accent-mint);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 40px var(--shadow-soft);
-            animation: gentle-bounce 3s ease-in-out infinite;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-gif::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 4s ease-in-out infinite;
-        }
-
-        @keyframes gentle-bounce {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes shimmer {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--accent-sage), var(--accent-mint));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            font-style: italic;
-        }
-
-        .lazy-button {
-            background: var(--accent-mint);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            font-family: inherit;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 30px var(--shadow-soft);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lazy-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px var(--shadow-soft);
-            background: var(--accent-sage);
-        }
-
-        .lazy-button:active {
-            transform: translateY(0px);
-        }
-
-        /* Content Sections */
-        .content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section {
-            margin: 6rem 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--accent-sage);
-            position: relative;
-        }
-
-        .section h2:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--accent-mint);
-            border-radius: 2px;
-        }
-
-        /* About Section */
-        .about-card {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 20px 60px var(--shadow-soft);
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-avatar {
-            width: 150px;
-            height: 150px;
-            background: var(--bg-secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            margin: 0 auto;
-        }
-
-        .bio-list {
-            list-style: none;
-        }
-
-        .bio-list li {
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .bio-list strong {
-            color: var(--accent-sage);
-            min-width: 100px;
-        }
-
-        /* GIF Gallery */
-        .gif-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .gif-item {
-            background: white;
-            border-radius: 15px;
-            padding: 1rem;
-            box-shadow: 0 10px 30px var(--shadow-soft);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gif-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 50px var(--shadow-soft);
-        }
-
-        .gif-placeholder {
-            width: 100%;
-            height: 150px;
-            background: var(--bg-secondary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .mood-tag {
-            background: var(--accent-mint);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            display: inline-block;
-        }
-
-        /* Lazy Generator */
-        .lazy-generator {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            text-align: center;
-            box-shadow: 0 20px 60px var(--shadow-soft);
-        }
-
-        .quiz-container {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .question-card {
-            background: var(--bg-secondary);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 1.5rem 0;
-            display: none;
-            animation: slideIn 0.5s ease;
-        }
-
-        .question-card.active {
-            display: block;
-        }
-
-        .question-card h4 {
-            color: var(--accent-sage);
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        .answer-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .answer-btn {
-            background: white;
-            border: 2px solid var(--accent-mint);
-            padding: 1rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            text-align: left;
-        }
-
-        .answer-btn:hover {
-            background: var(--accent-mint);
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--bg-secondary);
-            border-radius: 4px;
-            margin: 2rem 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-mint), var(--accent-sage));
-            width: 0%;
-            transition: width 0.5s ease;
-            border-radius: 4px;
-        }
-
-        .generator-result {
-            margin: 2rem 0;
-            padding: 2rem;
-            background: var(--bg-secondary);
-            border-radius: 15px;
-            display: none;
-        }
-
-        .generator-result.show {
-            display: block;
-            animation: fadeInUp 0.5s ease;
-        }
-
-        .score-display {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--accent-sage);
-            margin: 1rem 0;
-        }
-
-        .score-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .score-item {
-            background: white;
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .score-item .emoji {
-            font-size: 1.5rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .score-item .percentage {
-            font-weight: bold;
-            color: var(--accent-sage);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--accent-sage);
-            color: white;
-            text-align: center;
-            padding: 3rem 2rem;
-            margin-top: 6rem;
-        }
-
-        .footer a {
-            color: var(--accent-mint);
-            text-decoration: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .about-card {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 2rem;
-            }
-
-            .gif-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 1rem;
-            }
-
-            .section {
-                margin: 4rem 0;
-            }
-        }
-
-        /* Rain Mode */
-        .rain-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 3;
-            display: none;
-        }
-
-        .rain-overlay.active {
-            display: block;
-        }
-
-        .raindrop {
-            position: absolute;
-            width: 2px;
-            height: 20px;
-            background: linear-gradient(transparent, var(--accent-mint));
-            animation: rain-fall 1s linear infinite;
-        }
-
-        @keyframes rain-fall {
-            0% {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-
-        .toggle-rain {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--accent-mint);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            cursor: pointer;
-            z-index: 10;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .toggle-rain:hover {
-            background: var(--accent-sage);
-            transform: scale(1.05);
-        }
-
-        .language-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: var(--accent-sage);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            cursor: pointer;
-            z-index: 10;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .language-toggle:hover {
-            background: var(--accent-mint);
-            transform: scale(1.05);
-        }
-
-        /* Language specific styles */
-        body[data-lang="zh"] .lang-en {
-            display: none;
-        }
-
-        body[data-lang="en"] .lang-zh {
-            display: none;
-        }
-    </style>
-</head>
-<body data-lang="zh">
-    <!-- Floating Leaves Background -->
-    <div class="floating-leaves" id="floatingLeaves"></div>
-
-    <!-- Language Toggle -->
-    <button class="language-toggle" onclick="toggleLanguage()">
-        <span class="lang-zh">🇺🇸 English</span>
-        <span class="lang-en">🇨🇳 中文</span>
-    </button>
-
-    <!-- Rain Toggle -->
-    <button class="toggle-rain" onclick="toggleRain()">
-        <span class="lang-zh">🌧️ 雨天模式</span>
-        <span class="lang-en">🌧️ Rain Mode</span>
-    </button>
-
-    <!-- Rain Overlay -->
-    <div class="rain-overlay" id="rainOverlay"></div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-gif">
-            🍊💤
-        </div>
-        <h1>
-            <span class="lang-zh">欢迎来到水沐柚子的世界</span>
-            <span class="lang-en">Welcome to RainPomelo's World</span>
-        </h1>
-        <p>
-            <span class="lang-zh">只要氛围，不要压力。</span>
-            <span class="lang-en">Just vibes. No stress.</span>
-        </p>
-        <button class="lazy-button" onclick="scrollToContent()">
-            <span class="lang-zh">进入...我猜 🍃</span>
-            <span class="lang-en">Enter... I guess 🍃</span>
-        </button>
-    </section>
-
-    <!-- Main Content -->
-    <div class="content">
-        <!-- About Section -->
-        <section class="section" id="about">
-            <h2>
-                <span class="lang-zh">关于水沐柚子</span>
-                <span class="lang-en">About RainPomelo</span>
-            </h2>
-            <div class="about-card">
-                <div class="about-avatar">🍊✨</div>
-                <div>
-                    <ul class="bio-list">
+<ul class="bio-list">
                         <li>
                             <strong>
-                                <span class="lang-zh">物种:</span>
+                                <span class="lang-zh">物種:</span>
                                 <span class="lang-en">Species:</span>
                             </strong> 
-                            <span class="lang-zh">✨ 柚子精神团子</span>
-                            <span class="lang-en">✨ Pomelo spirit blob</span>
+                            <span class="lang-zh">🌱 懶惰柚子精靈或植物系團子</span>
+                            <span class="lang-en">🌱 Lazy pomelo spirit or plant-based blob</span>
                         </li>
                         <li>
                             <strong>
-                                <span class="lang-zh">爱好:</span>
-                                <span class="lang-en">Hobby:</span>
+                                <span class="lang-zh">外觀:</span>
+                                <span class="lang-en">Look:</span>
                             </strong> 
-                            <span class="lang-zh">✨ 什么都不做</span>
-                            <span class="lang-en">✨ Doing absolutely nothing</span>
-                        </li>
-                        <li>
-                            <strong>
-                                <span class="lang-zh">口头禅:</span>
-                                <span class="lang-en">Phrase:</span>
-                            </strong> 
-                            <span class="lang-zh">"唔...好困..."</span>
-                            <span class="lang-en">"Ughhh... so sleepy..."</span>
+                            <span class="lang-zh">白色圓身體，綠色漸層，圍巾，頭頂標志性雙葉嫩芽</span>
+                            <span class="lang-en">White round body with green gradient, scarf, and signature two-leaf sprout on top</span>
                         </li>
                         <li>
                             <strong>
                                 <span class="lang-zh">心情:</span>
                                 <span class="lang-en">Mood:</span>
                             </strong> 
-                            <span class="lang-zh">永远疲惫但很可爱</span>
-                            <span class="lang-en">Perpetually exhausted but cute</span>
+                            <span class="lang-zh">永遠疲憊、冷漠或略感好笑</span>
+                            <span class="lang-en">Perpetually exhausted, indifferent, or slightly amused</span>
                         </li>
                         <li>
                             <strong>
-                                <span class="lang-zh">超能力:</span>
-                                <span class="lang-en">Powers:</span>
+                                <span class="lang-zh">行為:</span>
+                                <span class="lang-en">Behavior:</span>
                             </strong> 
-                            <span class="lang-zh">让每个人都想睡觉</span>
-                            <span class="lang-en">Making everyone want to nap</span>
+                            <span class="lang-zh">經常睡覺、嘆氣、被戳哭、滾來滾去，以最可愛的方式情緒化</span>
+                            <span class="lang-en">Frequently sleeping, sighing, getting poked & crying, rolling around, being emotionally dramatic in the cutest way</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <span class="lang-zh">流行於:</span>
+                                <span class="lang-en">Popular in:</span>
+                            </strong> 
+                            <span class="lang-zh">LINE 貼圖、台灣中國迷因文化、社交媒體表情包</span>
+                            <span class="lang-en">LINE Stickers, Taiwanese & Chinese meme culture, social media reaction GIFs</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <span class="lang-zh">象徵:</span>
+                                <span class="lang-en">Symbol:</span>
+                            </strong> 
+                            <span class="lang-zh">可理解的職業倦怠、內向和懶惰快樂的象徵</span>
+                            <span class="lang-en">Emblem of relatable burnout, introversion, and lazy joy</span>
                         </li>
                     </ul>
-                    <p style="margin-top: 1.5rem; font-style: italic;">
+                    <p style="margin-top: 2rem; font-style: italic; color: var(--text-secondary);">
                         <span class="lang-zh">
-                            水沐柚子诞生于大家集体想要"今天就算了吧"的愿望，代表着情感可爱和社交倦怠的完美平衡。
-                            温柔地提醒我们，保持柔软、困倦和超级可爱的同时逃避所有责任是完全可以的。
+                            Seedcher（種子老師）是一個粉絲命名，結合了「seed」和「teacher」或「creature」，
+                            用來描述這個頭頂嫩芽的小團子。它完美體現了現代人的疲憊感，但又無法抗拒的可愛。
                         </span>
                         <span class="lang-en">
-                            Born from the collective desire to just... not today, RainPomelo represents 
-                            that perfect balance of emotional cuteness and social burnout. A gentle 
-                            reminder that it's okay to be soft, sleepy, and absolutely adorable while 
-                            avoiding all responsibilities.
+                            Seedcher is a fan-adopted name combining "seed" and "teacher" or "creature", 
+                            describing this sprout-headed blob that perfectly embodies modern exhaustion 
+                            with irresistible cuteness.
                         </span>
                     </p>
                 </div>
@@ -650,74 +66,74 @@
         <!-- GIF Gallery -->
         <section class="section" id="gallery">
             <h2>
-                <span class="lang-zh">表情包画廊</span>
-                <span class="lang-en">GIF Gallery</span>
+                <span class="lang-zh">表情包畫廊</span>
+                <span class="lang-en">Expression Gallery</span>
             </h2>
             <div class="gif-grid">
                 <div class="gif-item">
-                    <div class="gif-placeholder">📚💤</div>
+                    <div class="gif-placeholder">😴💤</div>
                     <span class="mood-tag">
-                        <span class="lang-zh">🍃 佛系</span>
-                        <span class="lang-en">🍃 Chill</span>
+                        <span class="lang-zh">💤 困困模式</span>
+                        <span class="lang-en">💤 Sleepy Mode</span>
                     </span>
                     <p>
-                        <span class="lang-zh">读书好累...</span>
-                        <span class="lang-en">Reading is hard work...</span>
+                        <span class="lang-zh">想睡...永遠想睡...</span>
+                        <span class="lang-en">Wanna sleep... always sleepy...</span>
                     </p>
                 </div>
                 <div class="gif-item">
-                    <div class="gif-placeholder">🛏️😴</div>
+                    <div class="gif-placeholder">😫📱</div>
                     <span class="mood-tag">
-                        <span class="lang-zh">💤 困困</span>
-                        <span class="lang-en">💤 Sleepy</span>
+                        <span class="lang-zh">🛍️ 撒嬌模式</span>
+                        <span class="lang-en">🛍️ Whiny Mode</span>
                     </span>
                     <p>
-                        <span class="lang-zh">再睡五分钟...</span>
-                        <span class="lang-en">Five more minutes...</span>
-                    </p>
-                </div>
-                <div class="gif-item">
-                    <div class="gif-placeholder">🛍️😫</div>
-                    <span class="mood-tag">
-                        <span class="lang-zh">🛍️ 撒娇</span>
-                        <span class="lang-en">🛍️ Whiny</span>
-                    </span>
-                    <p>
-                        <span class="lang-zh">但是我不想要...</span>
-                        <span class="lang-en">But I don't wanna...</span>
+                        <span class="lang-zh">買給我！不然就哭哭</span>
+                        <span class="lang-en">Buy it for me! Or I'll cry</span>
                     </p>
                 </div>
                 <div class="gif-item">
                     <div class="gif-placeholder">😤💨</div>
                     <span class="mood-tag">
-                        <span class="lang-zh">😤 生气</span>
-                        <span class="lang-en">😤 Mad</span>
+                        <span class="lang-zh">😤 煩躁模式</span>
+                        <span class="lang-en">😤 Annoyed Mode</span>
                     </span>
                     <p>
-                        <span class="lang-zh">哼！好烦！</span>
-                        <span class="lang-en">Hmph! So annoying!</span>
+                        <span class="lang-zh">好煩喔！這什麼鬼！</span>
+                        <span class="lang-en">So annoying! What the heck!</span>
                     </p>
                 </div>
                 <div class="gif-item">
-                    <div class="gif-placeholder">🫠💧</div>
+                    <div class="gif-placeholder">🤕💧</div>
                     <span class="mood-tag">
-                        <span class="lang-zh">🫠 融化</span>
-                        <span class="lang-en">🫠 Melted</span>
+                        <span class="lang-zh">😭 被戳模式</span>
+                        <span class="lang-en">😭 Poked Mode</span>
                     </span>
                     <p>
-                        <span class="lang-zh">我不行了...</span>
-                        <span class="lang-en">I can't even...</span>
+                        <span class="lang-zh">不要戳我！會哭的！</span>
+                        <span class="lang-en">Don't poke me! I'll cry!</span>
                     </p>
                 </div>
                 <div class="gif-item">
-                    <div class="gif-placeholder">🍊🌈</div>
+                    <div class="gif-placeholder">🙄💫</div>
                     <span class="mood-tag">
-                        <span class="lang-zh">✨ 魔法</span>
-                        <span class="lang-en">✨ Magical</span>
+                        <span class="lang-zh">🫠 翻白眼模式</span>
+                        <span class="lang-en">🫠 Eye-roll Mode</span>
                     </span>
                     <p>
-                        <span class="lang-zh">罕见的积极时刻</span>
-                        <span class="lang-en">Rare motivated moment</span>
+                        <span class="lang-zh">隨便啦...管我幹嘛</span>
+                        <span class="lang-en">Whatever... why do you care</span>
+                    </p>
+                </div>
+                <div class="gif-item">
+                    <div class="gif-placeholder">🌱✨</div>
+                    <span class="mood-tag">
+                        <span class="lang-zh">✨ 發芽模式</span>
+                        <span class="lang-en">✨ Sprouting Mode</span>
+                    </span>
+                    <p>
+                        <span class="lang-zh">偶爾也會有動力時刻</span>
+                        <span class="lang-en">Occasionally motivated moments</span>
                     </p>
                 </div>
             </div>
@@ -726,23 +142,24 @@
         <!-- Laziness Assessment -->
         <section class="section" id="generator">
             <h2>
-                <span class="lang-zh">懒惰程度评估</span>
-                <span class="lang-en">Laziness Assessment</span>
+                <span class="lang-zh">Seedcher 懶惰等級測試</span>
+                <span class="lang-en">Seedcher Laziness Level Test</span>
             </h2>
             <div class="lazy-generator">
                 <div class="quiz-container">
                     <div id="quizStart">
+                        <div style="font-size: 4rem; margin-bottom: 2rem;">🌱💤</div>
                         <h3>
-                            <span class="lang-zh">你今天有多懒？</span>
-                            <span class="lang-en">How lazy are you today?</span>
+                            <span class="lang-zh">你今天的 Seedcher 等級是？</span>
+                            <span class="lang-en">What's your Seedcher level today?</span>
                         </h3>
-                        <p>
-                            <span class="lang-zh">让水沐柚子通过这个完全合法的测试科学分析你的懒惰程度...</span>
-                            <span class="lang-en">Let RainPomelo scientifically analyze your laziness levels through this totally legitimate quiz...</span>
+                        <p style="margin: 2rem 0; color: var(--text-secondary); font-size: 1.1rem;">
+                            <span class="lang-zh">讓 Seedcher 透過科學的懶惰分析來評估你的嫩芽能量...</span>
+                            <span class="lang-en">Let Seedcher scientifically analyze your sprout energy through laziness assessment...</span>
                         </p>
-                        <button class="lazy-button" onclick="startQuiz()" style="margin: 2rem 0;">
-                            <span class="lang-zh">开始懒惰程度评估 🍊</span>
-                            <span class="lang-en">Begin Laziness Assessment 🍊</span>
+                        <button class="cta-button" onclick="startQuiz()" style="margin: 2rem 0;">
+                            <span class="lang-zh">開始發芽測試 🌱</span>
+                            <span class="lang-en">Begin Sprout Test 🌱</span>
                         </button>
                     </div>
 
@@ -750,8 +167,8 @@
                         <div class="progress-bar">
                             <div class="progress-fill" id="progressFill"></div>
                         </div>
-                        <p>
-                            <span class="lang-zh">第 <span id="currentQ">1</span> 题，共 <span id="totalQ">7</span> 题</span>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                            <span class="lang-zh">第 <span id="currentQ">1</span> 題，共 <span id="totalQ">7</span> 題</span>
                             <span class="lang-en"><span id="currentQ2">1</span> of <span id="totalQ2">7</span> questions</span>
                         </p>
                     </div>
@@ -759,25 +176,25 @@
                     <!-- Question 1 -->
                     <div class="question-card" id="q1">
                         <h4>
-                            <span class="lang-zh">🛏️ 周六上午10点，你现在的姿势是？</span>
-                            <span class="lang-en">🛏️ It's 10 AM on a Saturday. What's your current position?</span>
+                            <span class="lang-zh">🛏️ 週六上午10點，你的標準姿勢是？</span>
+                            <span class="lang-en">🛏️ Saturday 10 AM, what's your default position?</span>
                         </h4>
                         <div class="answer-options">
                             <button class="answer-btn" onclick="selectAnswer(1, 5)">
-                                <span class="lang-zh">还在床上，在思考是否真的需要起来上厕所</span>
-                                <span class="lang-en">Still in bed, debating if I need to pee badly enough to get up</span>
+                                <span class="lang-zh">還在床上，在內心激烈討論要不要起來上廁所</span>
+                                <span class="lang-en">Still in bed, having internal debates about bathroom needs</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(1, 3)">
-                                <span class="lang-zh">穿着睡衣在沙发上，考虑早餐的事情</span>
-                                <span class="lang-en">On the couch in pajamas, contemplating breakfast</span>
+                                <span class="lang-zh">睡衣狀態躺沙發，盯著天花板思考人生</span>
+                                <span class="lang-en">Pajama mode on couch, staring at ceiling contemplating life</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(1, 1)">
-                                <span class="lang-zh">已经穿好衣服在做事（水沐柚子表示担心）</span>
-                                <span class="lang-en">Fully dressed and productive (RainPomelo is concerned)</span>
+                                <span class="lang-zh">已經穿好衣服在做事（Seedcher 很擔心你）</span>
+                                <span class="lang-en">Already dressed and productive (Seedcher is worried about you)</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(1, 4)">
-                                <span class="lang-zh">床→厕所→回床上（完美循环）</span>
-                                <span class="lang-en">Bed → bathroom → back to bed (the perfect cycle)</span>
+                                <span class="lang-zh">床→廁所→床，完美的生態循環</span>
+                                <span class="lang-en">Bed → bathroom → bed, perfect ecosystem cycle</span>
                             </button>
                         </div>
                     </div>
@@ -785,25 +202,25 @@
                     <!-- Question 2 -->
                     <div class="question-card" id="q2">
                         <h4>
-                            <span class="lang-zh">📱 你的手机只剩5%电量，充电器在房间另一边，你会...</span>
-                            <span class="lang-en">📱 Your phone is at 5% battery. Your charger is across the room. You...</span>
+                            <span class="lang-zh">📱 手機剩5%電，充電器在房間另一頭，你的反應？</span>
+                            <span class="lang-en">📱 Phone at 5%, charger across the room. Your response?</span>
                         </h4>
                         <div class="answer-options">
                             <button class="answer-btn" onclick="selectAnswer(2, 5)">
-                                <span class="lang-zh">接受命运，让它自生自灭。终于清净了。</span>
-                                <span class="lang-en">Accept your fate and let it die. Peace at last.</span>
+                                <span class="lang-zh">接受死亡，讓手機安詳離世。世界終於安靜了</span>
+                                <span class="lang-en">Accept death, let phone rest in peace. Finally some quiet</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(2, 3)">
-                                <span class="lang-zh">计算一下接下来几小时是否真的需要它</span>
-                                <span class="lang-en">Calculate if you REALLY need it for the next few hours</span>
+                                <span class="lang-zh">精密計算接下來2小時是否真的需要它</span>
+                                <span class="lang-en">Precisely calculate if I really need it for the next 2 hours</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(2, 1)">
-                                <span class="lang-zh">立即起来充电，像个负责任的成年人</span>
-                                <span class="lang-en">Immediately get up and charge it like a responsible adult</span>
+                                <span class="lang-zh">立刻起身充電，做個負責任的現代人</span>
+                                <span class="lang-en">Immediately get up to charge it like a responsible modern human</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(2, 4)">
-                                <span class="lang-zh">叫别人帮你拿充电器</span>
-                                <span class="lang-en">Ask someone else to bring you the charger</span>
+                                <span class="lang-zh">大聲呼叫室友/家人幫忙拿充電器</span>
+                                <span class="lang-en">Loudly call roommate/family to bring the charger</span>
                             </button>
                         </div>
                     </div>
@@ -811,25 +228,25 @@
                     <!-- Question 3 -->
                     <div class="question-card" id="q3">
                         <h4>
-                            <span class="lang-zh">🍕 晚饭时间到了，你对做饭的动力水平是...</span>
-                            <span class="lang-en">🍕 Dinner time approaches. Your energy level for cooking is...</span>
+                            <span class="lang-zh">🍕 晚餐時間，你對下廚的積極程度？</span>
+                            <span class="lang-en">🍕 Dinner time, your enthusiasm for cooking?</span>
                         </h4>
                         <div class="answer-options">
                             <button class="answer-btn" onclick="selectAnswer(3, 5)">
-                                <span class="lang-zh">负数。麦片算正餐，对吧？</span>
-                                <span class="lang-en">Negative. Cereal is a meal, right?</span>
+                                <span class="lang-zh">負無限大。泡麵就是米其林</span>
+                                <span class="lang-en">Negative infinity. Instant noodles are Michelin-starred</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(3, 4)">
-                                <span class="lang-zh">微波爆米花也算做饭</span>
-                                <span class="lang-en">Microwave popcorn counts as cooking</span>
+                                <span class="lang-zh">微波食品算是烹飪藝術</span>
+                                <span class="lang-en">Microwave meals count as culinary art</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(3, 2)">
-                                <span class="lang-zh">也许我会点外卖...或者就吃零食</span>
-                                <span class="lang-en">Maybe I'll order delivery... or just snack</span>
+                                <span class="lang-zh">可能會叫外送...或者把零食當正餐</span>
+                                <span class="lang-en">Might order delivery... or treat snacks as main course</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(3, 1)">
-                                <span class="lang-zh">我已经计划好了餐食并准备了食材</span>
-                                <span class="lang-en">I have a meal planned and ingredients ready</span>
+                                <span class="lang-zh">已經準備食材和完整計劃</span>
+                                <span class="lang-en">Already prepared ingredients with complete meal plan</span>
                             </button>
                         </div>
                     </div>
@@ -837,25 +254,25 @@
                     <!-- Question 4 -->
                     <div class="question-card" id="q4">
                         <h4>
-                            <span class="lang-zh">🧺 你的洗衣篮满了，你的反应是？</span>
-                            <span class="lang-en">🧺 Your laundry basket is full. Your response?</span>
+                            <span class="lang-zh">🧺 洗衣籃滿了溢出來，你的應對策略？</span>
+                            <span class="lang-en">🧺 Laundry basket overflowing, your strategy?</span>
                         </h4>
                         <div class="answer-options">
                             <button class="answer-btn" onclick="selectAnswer(4, 5)">
-                                <span class="lang-zh">把衣服翻过来穿。创新！</span>
-                                <span class="lang-en">Wear clothes inside-out. Innovation!</span>
+                                <span class="lang-zh">衣服反面穿。這叫環保再利用</span>
+                                <span class="lang-en">Wear clothes inside-out. It's called eco-friendly recycling</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(4, 4)">
-                                <span class="lang-zh">买新内衣而不是洗衣服</span>
-                                <span class="lang-en">Buy new underwear instead of doing laundry</span>
+                                <span class="lang-zh">網購新內衣比洗衣服簡單</span>
+                                <span class="lang-en">Online shopping new underwear is easier than laundry</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(4, 2)">
-                                <span class="lang-zh">闻闻味道，重新穿"足够干净"的衣服</span>
-                                <span class="lang-en">Do the sniff test and rewear the 'clean enough' items</span>
+                                <span class="lang-zh">聞味道測試，重新定義「乾淨」標準</span>
+                                <span class="lang-en">Sniff test and redefine "clean" standards</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(4, 1)">
-                                <span class="lang-zh">像个正常成年人一样真的去洗衣服</span>
-                                <span class="lang-en">Actually do the laundry like a functioning adult</span>
+                                <span class="lang-zh">像個成熟大人一樣真的去洗衣服</span>
+                                <span class="lang-en">Actually do laundry like a functioning adult</span>
                             </button>
                         </div>
                     </div>
@@ -863,25 +280,25 @@
                     <!-- Question 5 -->
                     <div class="question-card" id="q5">
                         <h4>
-                            <span class="lang-zh">💼 你有个任务明天要交，今天你会...</span>
-                            <span class="lang-en">💼 You have a task due tomorrow. Today you will...</span>
+                            <span class="lang-zh">💼 明天要交的作業/工作，今天你會？</span>
+                            <span class="lang-en">💼 Assignment/work due tomorrow, today you will?</span>
                         </h4>
                         <div class="answer-options">
                             <button class="answer-btn" onclick="selectAnswer(5, 5)">
-                                <span class="lang-zh">一边做别的事一边认真思考这个任务</span>
-                                <span class="lang-en">Think about it intensely while doing literally anything else</span>
+                                <span class="lang-zh">一邊做其他事一邊瘋狂思考這件事</span>
+                                <span class="lang-en">Intensely think about it while doing literally anything else</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(5, 4)">
-                                <span class="lang-zh">打开文档，盯着看，然后关掉</span>
-                                <span class="lang-en">Open the document, stare at it, then close it</span>
+                                <span class="lang-zh">打開文件，凝視5分鐘，然後關掉</span>
+                                <span class="lang-en">Open file, stare for 5 minutes, then close it</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(5, 3)">
-                                <span class="lang-zh">做30%，然后称其为"良好进展"</span>
-                                <span class="lang-en">Do 30% of it and call it 'good progress'</span>
+                                <span class="lang-zh">完成30%然後慶祝「進展良好」</span>
+                                <span class="lang-en">Complete 30% and celebrate "good progress"</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(5, 1)">
-                                <span class="lang-zh">提前完成（水沐柚子不理解你）</span>
-                                <span class="lang-en">Actually complete it early (RainPomelo doesn't understand you)</span>
+                                <span class="lang-zh">提前完成（Seedcher 完全無法理解）</span>
+                                <span class="lang-en">Finish early (Seedcher completely doesn't understand)</span>
                             </button>
                         </div>
                     </div>
@@ -889,25 +306,25 @@
                     <!-- Question 6 -->
                     <div class="question-card" id="q6">
                         <h4>
-                            <span class="lang-zh">🚿 当你没有任何安排时，理想的洗澡时长是？</span>
-                            <span class="lang-en">🚿 Your ideal shower duration when you have nowhere to be?</span>
+                            <span class="lang-zh">🚿 沒事做的時候，理想洗澡時長？</span>
+                            <span class="lang-en">🚿 Ideal shower duration when you have nothing to do?</span>
                         </h4>
                         <div class="answer-options">
                             <button class="answer-btn" onclick="selectAnswer(6, 5)">
-                                <span class="lang-zh">45分钟以上。这是我的冥想室。</span>
-                                <span class="lang-en">45+ minutes. It's my meditation chamber.</span>
+                                <span class="lang-zh">45分鐘+。這是我的冥想聖地</span>
+                                <span class="lang-en">45+ minutes. This is my meditation sanctuary</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(6, 4)">
-                                <span class="lang-zh">直到热水用完，然后再洗5分钟</span>
-                                <span class="lang-en">Until the hot water runs out, then 5 more minutes</span>
+                                <span class="lang-zh">直到熱水用完，然後再沖5分鐘冷水</span>
+                                <span class="lang-en">Until hot water runs out, then 5 more minutes of cold</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(6, 2)">
-                                <span class="lang-zh">15-20分钟的合理放松</span>
+                                <span class="lang-zh">15-20分鐘，合理的放鬆時間</span>
                                 <span class="lang-en">15-20 minutes of reasonable relaxation</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(6, 1)">
-                                <span class="lang-zh">快速高效，最多5-10分钟</span>
-                                <span class="lang-en">Quick and efficient, 5-10 minutes max</span>
+                                <span class="lang-zh">5-10分鐘快速高效解決</span>
+                                <span class="lang-en">5-10 minutes quick and efficient</span>
                             </button>
                         </div>
                     </div>
@@ -915,43 +332,43 @@
                     <!-- Question 7 -->
                     <div class="question-card" id="q7">
                         <h4>
-                            <span class="lang-zh">🎬 Netflix问"您还在观看吗？"你会...</span>
-                            <span class="lang-en">🎬 Netflix asks "Are you still watching?" You...</span>
+                            <span class="lang-zh">🎬 Netflix問「您還在觀看嗎？」你的內心戲？</span>
+                            <span class="lang-en">🎬 Netflix asks "Are you still watching?" Your inner monologue?</span>
                         </h4>
                         <div class="answer-options">
                             <button class="answer-btn" onclick="selectAnswer(7, 5)">
-                                <span class="lang-zh">感到人身攻击但还是点击"继续观看"</span>
-                                <span class="lang-en">Feel personally attacked but click 'Continue Watching'</span>
+                                <span class="lang-zh">感受到人身攻擊但仍點擊「繼續播放」</span>
+                                <span class="lang-en">Feel personally attacked but still click "Continue Playing"</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(7, 4)">
-                                <span class="lang-zh">把这当作开始新剧集的信号</span>
-                                <span class="lang-en">Take it as a sign to start a new series</span>
+                                <span class="lang-zh">把這當成開始新劇的神聖信號</span>
+                                <span class="lang-en">Take this as sacred signal to start a new series</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(7, 2)">
-                                <span class="lang-zh">真的停下来去做点有用的事</span>
-                                <span class="lang-en">Actually stop and do something productive</span>
+                                <span class="lang-zh">真的關掉去做點有意義的事</span>
+                                <span class="lang-en">Actually turn it off and do something meaningful</span>
                             </button>
                             <button class="answer-btn" onclick="selectAnswer(7, 3)">
-                                <span class="lang-zh">睡着了，让它自动播放</span>
-                                <span class="lang-en">Fall asleep and let it auto-play whatever</span>
+                                <span class="lang-zh">已經睡著了，讓它自動播放到天荒地老</span>
+                                <span class="lang-en">Already asleep, let it auto-play till the end of time</span>
                             </button>
                         </div>
                     </div>
 
                     <div class="generator-result" id="lazyResult">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🍊💤</div>
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">🌱💤</div>
                         <h4>
-                            <span class="lang-zh">你的懒惰程度评估结果</span>
-                            <span class="lang-en">Your Laziness Assessment Results</span>
+                            <span class="lang-zh">你的 Seedcher 等級評估結果</span>
+                            <span class="lang-en">Your Seedcher Level Assessment Results</span>
                         </h4>
                         <div class="score-display" id="totalScore">85%</div>
-                        <h4 id="lazyTitle">
-                            <span class="lang-zh">认证沙发土豆</span>
-                            <span class="lang-en">Certified Couch Potato</span>
+                        <h4 id="lazyTitle" style="margin-bottom: 1.5rem;">
+                            <span class="lang-zh">認證沙發嫩芽</span>
+                            <span class="lang-en">Certified Couch Sprout</span>
                         </h4>
-                        <p id="lazyMessage">
-                            <span class="lang-zh">水沐柚子对你致力于什么都不做的艺术印象深刻。</span>
-                            <span class="lang-en">RainPomelo is impressed by your dedication to the art of doing nothing.</span>
+                        <p id="lazyMessage" style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem;">
+                            <span class="lang-zh">Seedcher 對你的懶惰藝術造詣深感敬佩。</span>
+                            <span class="lang-en">Seedcher deeply admires your artistic mastery of laziness.</span>
                         </p>
                         
                         <div class="score-breakdown">
@@ -959,39 +376,39 @@
                                 <span class="emoji">💤</span>
                                 <div class="percentage" id="sleepScore">90%</div>
                                 <small>
-                                    <span class="lang-zh">困倦</span>
-                                    <span class="lang-en">Sleepy</span>
+                                    <span class="lang-zh">困倦指數</span>
+                                    <span class="lang-en">Sleepiness</span>
                                 </small>
                             </div>
                             <div class="score-item">
                                 <span class="emoji">🛋️</span>
                                 <div class="percentage" id="couchScore">85%</div>
                                 <small>
-                                    <span class="lang-zh">沙发绑定</span>
-                                    <span class="lang-en">Couch-bound</span>
+                                    <span class="lang-zh">沙發黏著度</span>
+                                    <span class="lang-en">Couch Adhesion</span>
                                 </small>
                             </div>
                             <div class="score-item">
-                                <span class="emoji">🍕</span>
+                                <span class="emoji">🌱</span>
                                 <div class="percentage" id="effortScore">75%</div>
                                 <small>
-                                    <span class="lang-zh">低努力</span>
-                                    <span class="lang-en">Low Effort</span>
+                                    <span class="lang-zh">低能耗模式</span>
+                                    <span class="lang-en">Low Power Mode</span>
                                 </small>
                             </div>
                             <div class="score-item">
                                 <span class="emoji">📱</span>
                                 <div class="percentage" id="procrastScore">95%</div>
                                 <small>
-                                    <span class="lang-zh">拖延症</span>
-                                    <span class="lang-en">Procrastination</span>
+                                    <span class="lang-zh">拖延專精</span>
+                                    <span class="lang-en">Procrastination Pro</span>
                                 </small>
                             </div>
                         </div>
 
-                        <button class="lazy-button" onclick="resetQuiz()" style="margin-top: 2rem;">
-                            <span class="lang-zh">重新测试 🔄</span>
-                            <span class="lang-en">Take Quiz Again 🔄</span>
+                        <button class="cta-button" onclick="resetQuiz()" style="margin-top: 2rem;">
+                            <span class="lang-zh">重新發芽測試 🌱</span>
+                            <span class="lang-en">Re-sprout Test 🌱</span>
                         </button>
                     </div>
                 </div>
@@ -1001,24 +418,26 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>
-            <span class="lang-zh">用🍊和绝对零生产力制作。</span>
-            <span class="lang-en">Made with 🍊 and absolutely zero productivity.</span>
-        </p>
-        <p style="margin-top: 1rem;">
-            <a href="#">
-                <span class="lang-zh">下载水沐柚子表情包</span>
-                <span class="lang-en">Download RainPomelo Sticker Pack</span>
-            </a> | 
-            <a href="#">
-                <span class="lang-zh">访问原创作者</span>
-                <span class="lang-en">Visit Original Creator</span>
-            </a>
-        </p>
-        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-            <span class="lang-zh">"在努力文化的世界里，做一个水沐柚子。" 🍃</span>
-            <span class="lang-en">"In a world of hustle culture, be a RainPomelo." 🍃</span>
-        </p>
+        <div style="position: relative; z-index: 2;">
+            <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+                <span class="lang-zh">用 🌱 和絕對零生產力製作</span>
+                <span class="lang-en">Made with 🌱 and absolutely zero productivity</span>
+            </p>
+            <p style="margin-top: 1.5rem;">
+                <a href="#" style="margin: 0 1rem;">
+                    <span class="lang-zh">下載 Seedcher 貼圖包</span>
+                    <span class="lang-en">Download Seedcher Sticker Pack</span>
+                </a> | 
+                <a href="#" style="margin: 0 1rem;">
+                    <span class="lang-zh">訪問原創作者</span>
+                    <span class="lang-en">Visit Original Creator</span>
+                </a>
+            </p>
+            <p style="margin-top: 2rem; font-size: 1rem; opacity: 0.9; font-style: italic;">
+                <span class="lang-zh">"在努力文化的世界裡，做一個 Seedcher。" 🌱</span>
+                <span class="lang-en">"In a world of hustle culture, be a Seedcher." 🌱</span>
+            </p>
+        </div>
     </footer>
 
     <script>
@@ -1030,7 +449,9 @@
             body.setAttribute('data-lang', newLang);
             
             // Save language preference
-            localStorage.setItem('rainpomelo-lang', newLang);
+            try {
+                localStorage.setItem('seedcher-lang', newLang);
+            } catch(e) {}
             
             // Update progress counters if quiz is active
             updateProgressCounters();
@@ -1046,13 +467,15 @@
 
         // Load saved language preference
         function loadLanguagePreference() {
-            const savedLang = localStorage.getItem('rainpomelo-lang');
-            if (savedLang) {
-                document.body.setAttribute('data-lang', savedLang);
-            }
+            try {
+                const savedLang = localStorage.getItem('seedcher-lang');
+                if (savedLang) {
+                    document.body.setAttribute('data-lang', savedLang);
+                }
+            } catch(e) {}
         }
 
-        // Quiz functionality with Chinese result messages
+        // Quiz functionality with enhanced Seedcher messages
         let currentQuestion = 0;
         let quizAnswers = [];
         const totalQuestions = 7;
@@ -1060,38 +483,38 @@
         const resultMessages = {
             zh: {
                 titles: {
-                    deity: "懒惰至尊神 👑",
-                    potato: "认证沙发土豆 🛋️", 
-                    procrastinator: "专业拖延大师 📱",
-                    sloth: "休闲树懒 🦥",
-                    motivated: "可疑的积极分子 🤔",
-                    monster: "生产力怪物 😱"
+                    deity: "懶惰至尊嫩芽 🌱👑",
+                    potato: "認證沙發嫩芽 🌱🛋️", 
+                    procrastinator: "專業拖延小樹苗 🌱📱",
+                    sloth: "休閒懶芽 🌱🦥",
+                    motivated: "可疑積極嫩芽 🌱🤔",
+                    monster: "生產力怪物芽 🌱😱"
                 },
                 messages: {
-                    deity: "水沐柚子对你表示敬畏。你通过什么都不做的艺术达到了开悟境界。请教导我们你的方法，大师。",
-                    potato: "水沐柚子深感钦佩。你已经掌握了以最小努力获得最大舒适的微妙平衡。令人鼓舞。",
-                    procrastinator: "水沐柚子表示认可地点点头。你知道如何优先考虑重要的事情：绝对没有紧急的事。",
-                    sloth: "水沐柚子觉得你做得还不错，但在懒惰方面还有改进空间。需要更多午睡。",
-                    motivated: "水沐柚子对你的精力水平感到担心。你还好吗？也许你需要坐下来什么都不做一会儿。",
-                    monster: "水沐柚子完全不理解你。你怎么会有这么多精力？这让人深感不安。请立即休息。"
+                    deity: "Seedcher 對你表示最高敬意。你已經通過什麼都不做的藝術達到了嫩芽開悟境界。請傳授你的懶惰秘籍，大師。",
+                    potato: "Seedcher 深深佩服你的境界。你完美掌握了最小努力換取最大舒適的微妙平衡，真是嫩芽界的典範。",
+                    procrastinator: "Seedcher 認可地點點芽。你深諳優先順序的真諦：絕對沒有什麼事情是緊急的。",
+                    sloth: "Seedcher 覺得你表現不錯，但在懶惰修行方面還有成長空間。建議增加午睡頻率。",
+                    motivated: "Seedcher 對你的能量水平感到擔憂。你還好嗎？也許需要坐下來發發呆，讓嫩芽休息一下。",
+                    monster: "Seedcher 完全無法理解你。你哪來這麼多精力？這讓所有嫩芽都感到不安。請立即進入懶惰模式。"
                 }
             },
             en: {
                 titles: {
-                    deity: "Supreme Laziness Deity 👑",
-                    potato: "Certified Couch Potato 🛋️",
-                    procrastinator: "Professional Procrastinator 📱", 
-                    sloth: "Casual Sloth 🦥",
-                    motivated: "Suspiciously Motivated 🤔",
-                    monster: "Productivity Monster 😱"
+                    deity: "Supreme Lazy Sprout 🌱👑",
+                    potato: "Certified Couch Sprout 🌱🛋️",
+                    procrastinator: "Professional Procrastination Seedling 🌱📱", 
+                    sloth: "Casual Lazy Sprout 🌱🦥",
+                    motivated: "Suspiciously Active Sprout 🌱🤔",
+                    monster: "Productivity Monster Sprout 🌱😱"
                 },
                 messages: {
-                    deity: "RainPomelo bows in reverence. You've achieved enlightenment through the art of doing absolutely nothing. Teach us your ways, master.",
-                    potato: "RainPomelo is deeply impressed. You've mastered the delicate balance of maximum comfort with minimum effort. Inspirational.",
-                    procrastinator: "RainPomelo nods approvingly. You know how to prioritize what's important: absolutely nothing urgent.",
-                    sloth: "RainPomelo thinks you're doing okay, but there's room for improvement in the laziness department. More naps needed.",
-                    motivated: "RainPomelo is concerned about your energy levels. Are you feeling alright? Maybe you need to sit down and do nothing for a while.",
-                    monster: "RainPomelo doesn't understand you at all. How do you have so much energy? This is deeply unsettling. Please rest immediately."
+                    deity: "Seedcher bows in ultimate reverence. You've achieved sprout enlightenment through the art of doing absolutely nothing. Please teach us your lazy wisdom, master.",
+                    potato: "Seedcher deeply admires your mastery. You've perfected the delicate balance of minimum effort for maximum comfort - a true sprout role model.",
+                    procrastinator: "Seedcher nods approvingly with tiny sprout wiggles. You understand the true priority: absolutely nothing is ever urgent.",
+                    sloth: "Seedcher thinks you're doing okay, but there's room for growth in your laziness cultivation. More nap sessions recommended.",
+                    motivated: "Seedcher is concerned about your energy levels. Are you feeling alright? Maybe you need to sit down and let your inner sprout rest.",
+                    monster: "Seedcher is completely baffled by you. Where does all this energy come from? This disturbs all sprouts. Please enter lazy mode immediately."
                 }
             }
         };
@@ -1134,7 +557,7 @@
             // Hide progress
             document.getElementById('quizProgress').style.display = 'none';
             
-            // Calculate individual scores (with some randomization for fun)
+            // Calculate individual scores with sprout-themed randomization
             const sleepScore = Math.min(100, percentage + Math.floor(Math.random() * 20) - 10);
             const couchScore = Math.min(100, percentage + Math.floor(Math.random() * 15) - 5);
             const effortScore = Math.max(0, percentage - Math.floor(Math.random() * 25));
@@ -1185,7 +608,7 @@
             document.getElementById('effortScore').textContent = effortScore + '%';
             document.getElementById('procrastScore').textContent = procrastScore + '%';
             
-            // Show results
+            // Show results with celebration animation
             document.getElementById('lazyResult').classList.add('show');
         }
 
@@ -1206,34 +629,51 @@
             document.getElementById('quizProgress').style.display = 'none';
         }
 
-        // Lazy generator (keeping old function for backwards compatibility)
-        function generateLaziness() {
-            startQuiz();
-        }
-
-        // Floating leaves animation
-        function createFloatingLeaves() {
-            const container = document.getElementById('floatingLeaves');
-            const leaves = ['🍃', '🌿', '🍊', '💤'];
+        // Enhanced floating elements animation
+        function createFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            const elements = ['🌱', '🌿', '💤', '😴', '🟢', '🍃'];
             
             setInterval(() => {
-                if (Math.random() > 0.7) {
-                    const leaf = document.createElement('div');
-                    leaf.className = 'leaf';
-                    leaf.textContent = leaves[Math.floor(Math.random() * leaves.length)];
-                    leaf.style.left = Math.random() * 100 + '%';
-                    leaf.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                    leaf.style.animationDelay = Math.random() * 2 + 's';
-                    container.appendChild(leaf);
+                if (Math.random() > 0.8) {
+                    const element = document.createElement('div');
+                    element.className = 'floating-item';
+                    element.textContent = elements[Math.floor(Math.random() * elements.length)];
+                    element.style.left = Math.random() * 100 + '%';
+                    element.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                    element.style.animationDelay = Math.random() * 3 + 's';
+                    container.appendChild(element);
                     
                     setTimeout(() => {
-                        leaf.remove();
-                    }, 20000);
+                        element.remove();
+                    }, 25000);
                 }
-            }, 3000);
+            }, 4000);
         }
 
-        // Scroll animations
+        // Floating character variants for hero
+        function createFloatingCharacters() {
+            const container = document.getElementById('floatingCharacters');
+            const characters = ['🌱', '🟢', '💤'];
+            
+            setInterval(() => {
+                if (Math.random() > 0.85) {
+                    const char = document.createElement('div');
+                    char.className = 'mini-character';
+                    char.textContent = characters[Math.floor(Math.random() * characters.length)];
+                    char.style.left = Math.random() * 100 + '%';
+                    char.style.animationDuration = (Math.random() * 20 + 20) + 's';
+                    char.style.animationDelay = Math.random() * 5 + 's';
+                    container.appendChild(char);
+                    
+                    setTimeout(() => {
+                        char.remove();
+                    }, 30000);
+                }
+            }, 8000);
+        }
+
+        // Scroll animations with intersection observer
         function observeElements() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1243,7 +683,7 @@
                 });
             }, {
                 threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                rootMargin: '0px 0px -100px 0px'
             });
 
             document.querySelectorAll('.section').forEach(section => {
@@ -1258,7 +698,7 @@
             });
         }
 
-        // Rain mode
+        // Enhanced rain mode
         function toggleRain() {
             const rainOverlay = document.getElementById('rainOverlay');
             rainOverlay.classList.toggle('active');
@@ -1279,13 +719,13 @@
                 drop.className = 'raindrop';
                 drop.style.left = Math.random() * 100 + '%';
                 drop.style.animationDelay = Math.random() * 1 + 's';
-                drop.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+                drop.style.animationDuration = (Math.random() * 1 + 1) + 's';
                 rainOverlay.appendChild(drop);
                 
                 setTimeout(() => {
                     drop.remove();
-                }, 2000);
-            }, 100);
+                }, 3000);
+            }, 150);
         }
 
         function stopRain() {
@@ -1296,12 +736,11 @@
         // Initialize everything
         document.addEventListener('DOMContentLoaded', () => {
             loadLanguagePreference();
-            createFloatingLeaves();
+            createFloatingElements();
+            createFloatingCharacters();
             observeElements();
-        });
-
-        // GIF item interactions
-        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Enhanced GIF item interactions
             document.querySelectorAll('.gif-item').forEach(item => {
                 item.addEventListener('click', () => {
                     item.style.transform = 'scale(0.95)';
@@ -1309,8 +748,987 @@
                         item.style.transform = '';
                     }, 150);
                 });
+                
+                // Add hover sound effect simulation
+                item.addEventListener('mouseenter', () => {
+                    item.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                });
             });
+
+            // Add parallax effect to hero background
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    hero.style.transform = `translateY(${scrolled * 0.1}px)`;
+                }
+            });
+        });
+
+        // Prevent right-click context menu on character elements (for that authentic cute factor)
+        document.addEventListener('contextmenu', (e) => {
+            if (e.target.closest('.character-main') || e.target.closest('.about-avatar')) {
+                e.preventDefault();
+            }
+        });
+
+        // Add special easter egg for konami code lovers
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.code);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join('') === konamiSequence.join('')) {
+                // Secret Seedcher activation
+                document.body.style.filter = 'hue-rotate(180deg)';
+                setTimeout(() => {
+                    document.body.style.filter = '';
+                }, 3000);
+                
+                // Show special message
+                const msg = document.createElement('div');
+                msg.textContent = '🌱 Secret Seedcher mode activated! 🌱';
+                msg.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: var(--gradient-accent);
+                    color: white;
+                    padding: 2rem;
+                    border-radius: 20px;
+                    font-size: 1.5rem;
+                    z-index: 9999;
+                    animation: fadeInUp 0.5s ease;
+                `;
+                document.body.appendChild(msg);
+                
+                setTimeout(() => {
+                    msg.remove();
+                }, 3000);
+                
+                konamiCode = [];
+            }
         });
     </script>
 </body>
-</html>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seedcher Shrine | 好煩喔但很可愛</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f0f8f0;
+            --bg-secondary: #e8f5e8;
+            --accent-mint: #7ed957;
+            --accent-sage: #5fb83b;
+            --accent-soft: #a8e6a3;
+            --text-primary: #2d5a2d;
+            --text-secondary: #4a7c59;
+            --white: #ffffff;
+            --shadow-soft: rgba(95, 184, 59, 0.2);
+            --shadow-strong: rgba(95, 184, 59, 0.4);
+            --gradient-hero: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #ffffff 100%);
+            --gradient-accent: linear-gradient(135deg, #7ed957 0%, #5fb83b 100%);
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'Quicksand', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ctext y='20' font-size='18'%3E🌱%3C/text%3E%3C/svg%3E"), auto;
+            overflow-x: hidden;
+        }
+
+        body[data-lang="en"] {
+            font-family: 'Quicksand', 'Noto Sans SC', sans-serif;
+        }
+
+        /* Floating Elements Background */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-item {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.4;
+            animation: float-gentle 20s infinite linear;
+        }
+
+        @keyframes float-gentle {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--gradient-hero);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(126, 217, 87, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(95, 184, 59, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(168, 230, 163, 0.1) 0%, transparent 50%);
+            animation: bg-shift 15s ease-in-out infinite;
+        }
+
+        @keyframes bg-shift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            33% { transform: scale(1.1) rotate(1deg); }
+            66% { transform: scale(0.9) rotate(-1deg); }
+        }
+
+        .hero-character {
+            position: relative;
+            margin-bottom: 3rem;
+            z-index: 3;
+        }
+
+        .character-main {
+            width: 280px;
+            height: 280px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            margin: 0 auto;
+            box-shadow: 
+                0 30px 60px var(--shadow-soft),
+                0 0 0 20px rgba(255, 255, 255, 0.1),
+                inset 0 0 0 3px rgba(255, 255, 255, 0.3);
+            animation: character-float 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .character-main::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer-slow 6s ease-in-out infinite;
+        }
+
+        .character-main::after {
+            content: '🌱';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4rem;
+            animation: sprout-wiggle 3s ease-in-out infinite;
+        }
+
+        @keyframes character-float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
+        }
+
+        @keyframes shimmer-slow {
+            0% { transform: rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes sprout-wiggle {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(-5deg); }
+            75% { transform: translateX(-50%) rotate(5deg); }
+        }
+
+        .character-emotions {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .emotion-bubble {
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px var(--shadow-soft);
+            font-size: 1.1rem;
+            animation: bubble-float 6s ease-in-out infinite;
+            border: 2px solid var(--accent-soft);
+        }
+
+        .emotion-bubble:nth-child(1) { animation-delay: 0s; }
+        .emotion-bubble:nth-child(2) { animation-delay: 2s; }
+        .emotion-bubble:nth-child(3) { animation-delay: 4s; }
+
+        @keyframes bubble-float {
+            0%, 100% { transform: translateY(0px); opacity: 0.7; }
+            50% { transform: translateY(-10px); opacity: 1; }
+        }
+
+        .hero-content {
+            z-index: 3;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 20px var(--shadow-soft);
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 3rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(126, 217, 87, 0.3);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            background: var(--gradient-accent);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            font-family: inherit;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 15px 40px var(--shadow-soft);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: none;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 25px 60px var(--shadow-strong);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .cta-secondary {
+            background: var(--white);
+            color: var(--accent-sage);
+            border: 2px solid var(--accent-sage);
+        }
+
+        .cta-secondary:hover {
+            background: var(--accent-sage);
+            color: white;
+        }
+
+        /* Floating Character Variants */
+        .floating-characters {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .mini-character {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.3;
+            animation: mini-float 25s linear infinite;
+        }
+
+        @keyframes mini-float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-200px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced Content Sections */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section {
+            margin: 8rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+            background: var(--white);
+            border-radius: 30px;
+            padding: 4rem;
+            box-shadow: 0 30px 80px var(--shadow-soft);
+            border: 1px solid rgba(126, 217, 87, 0.1);
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .section h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        /* About Section Enhanced */
+        .about-card {
+            background: linear-gradient(135deg, var(--white) 0%, var(--bg-secondary) 100%);
+            border-radius: 25px;
+            padding: 4rem;
+            box-shadow: 0 25px 70px var(--shadow-soft);
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+            border: 2px solid rgba(126, 217, 87, 0.1);
+        }
+
+        .about-avatar {
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px var(--shadow-soft);
+            position: relative;
+            animation: gentle-pulse 4s ease-in-out infinite;
+        }
+
+        .about-avatar::after {
+            content: '🌱';
+            position: absolute;
+            top: -15px;
+            right: 10px;
+            font-size: 2.5rem;
+            animation: sprout-wiggle 3s ease-in-out infinite;
+        }
+
+        @keyframes gentle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .bio-list {
+            list-style: none;
+            space-y: 1rem;
+        }
+
+        .bio-list li {
+            padding: 1rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            border-bottom: 1px solid rgba(126, 217, 87, 0.1);
+        }
+
+        .bio-list li:last-child {
+            border-bottom: none;
+        }
+
+        .bio-list strong {
+            color: var(--accent-sage);
+            min-width: 120px;
+            font-weight: 600;
+        }
+
+        /* Controls */
+        .language-toggle, .rain-toggle {
+            position: fixed;
+            top: 25px;
+            background: var(--white);
+            color: var(--accent-sage);
+            border: 2px solid var(--accent-sage);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 10;
+            font-family: inherit;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px var(--shadow-soft);
+        }
+
+        .language-toggle {
+            left: 25px;
+        }
+
+        .rain-toggle {
+            right: 25px;
+        }
+
+        .language-toggle:hover, .rain-toggle:hover {
+            background: var(--accent-sage);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px var(--shadow-strong);
+        }
+
+        /* Language specific styles */
+        body[data-lang="zh"] .lang-en { display: none; }
+        body[data-lang="en"] .lang-zh { display: none; }
+
+        /* GIF Gallery Enhanced */
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gif-item {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 40px var(--shadow-soft);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(126, 217, 87, 0.1);
+        }
+
+        .gif-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 60px var(--shadow-strong);
+        }
+
+        .gif-placeholder {
+            width: 100%;
+            height: 180px;
+            background: var(--gradient-accent);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gif-placeholder::after {
+            content: '🌱';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .mood-tag {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px var(--shadow-soft);
+        }
+
+        /* Quiz Section Enhanced */
+        .lazy-generator {
+            background: linear-gradient(135deg, var(--white) 0%, var(--bg-secondary) 100%);
+            border-radius: 25px;
+            padding: 4rem;
+            text-align: center;
+            box-shadow: 0 25px 70px var(--shadow-soft);
+            border: 2px solid rgba(126, 217, 87, 0.1);
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .question-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            display: none;
+            animation: slideIn 0.6s ease;
+            box-shadow: 0 20px 50px var(--shadow-soft);
+            border: 1px solid rgba(126, 217, 87, 0.2);
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        .question-card h4 {
+            color: var(--accent-sage);
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .answer-btn {
+            background: var(--white);
+            border: 2px solid var(--accent-soft);
+            padding: 1.5rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 1rem;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(126, 217, 87, 0.1);
+        }
+
+        .answer-btn:hover {
+            background: var(--gradient-accent);
+            color: white;
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px var(--shadow-soft);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            margin: 3rem 0;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-accent);
+            width: 0%;
+            transition: width 0.6s ease;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: progress-shine 2s ease-in-out infinite;
+        }
+
+        @keyframes progress-shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .generator-result {
+            margin: 3rem 0;
+            padding: 3rem;
+            background: var(--white);
+            border-radius: 20px;
+            display: none;
+            box-shadow: 0 20px 50px var(--shadow-soft);
+            border: 2px solid var(--accent-soft);
+        }
+
+        .generator-result.show {
+            display: block;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .score-display {
+            font-size: 4rem;
+            font-weight: bold;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0;
+        }
+
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .score-item {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px var(--shadow-soft);
+            transition: transform 0.3s ease;
+        }
+
+        .score-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .score-item .emoji {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-item .percentage {
+            font-weight: bold;
+            color: var(--accent-sage);
+            font-size: 1.2rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer Enhanced */
+        .footer {
+            background: var(--gradient-accent);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-top: 8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ctext x='30' y='35' text-anchor='middle' font-size='20'%3E🌱%3C/text%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Rain Mode Enhanced */
+        .rain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+            display: none;
+        }
+
+        .rain-overlay.active {
+            display: block;
+        }
+
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            height: 25px;
+            background: linear-gradient(transparent, var(--accent-mint));
+            animation: rain-fall 1.5s linear infinite;
+            border-radius: 1px;
+        }
+
+        @keyframes rain-fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .character-main {
+                width: 220px;
+                height: 220px;
+                font-size: 6rem;
+            }
+
+            .about-card {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+            }
+
+            .gif-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .section {
+                margin: 4rem 0;
+                padding: 2rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .emotion-bubble {
+                font-size: 0.9rem;
+                padding: 0.8rem 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .language-toggle, .rain-toggle {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .character-main {
+                width: 180px;
+                height: 180px;
+                font-size: 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body data-lang="zh">
+    <!-- Floating Elements Background -->
+    <div class="floating-elements" id="floatingElements"></div>
+
+    <!-- Language Toggle -->
+    <button class="language-toggle" onclick="toggleLanguage()">
+        <span class="lang-zh">🇺🇸 English</span>
+        <span class="lang-en">🇨🇳 中文</span>
+    </button>
+
+    <!-- Rain Toggle -->
+    <button class="rain-toggle" onclick="toggleRain()">
+        <span class="lang-zh">🌧️ 雨天模式</span>
+        <span class="lang-en">🌧️ Rain Mode</span>
+    </button>
+
+    <!-- Rain Overlay -->
+    <div class="rain-overlay" id="rainOverlay"></div>
+
+    <!-- Enhanced Hero Section -->
+    <section class="hero">
+        <div class="floating-characters" id="floatingCharacters"></div>
+        
+        <div class="hero-character">
+            <div class="character-main">
+                🟢
+            </div>
+            <div class="character-emotions">
+                <div class="emotion-bubble">
+                    <span class="lang-zh">好煩喔</span>
+                    <span class="lang-en">So annoying</span>
+                </div>
+                <div class="emotion-bubble">
+                    <span class="lang-zh">想睡</span>
+                    <span class="lang-en">Wanna sleep</span>
+                </div>
+                <div class="emotion-bubble">
+                    <span class="lang-zh">買給我</span>
+                    <span class="lang-en">Buy it for me</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <h1>
+                <span class="lang-zh">Seedcher 的小窩</span>
+                <span class="lang-en">Seedcher's Cozy Corner</span>
+            </h1>
+            <p class="hero-subtitle">
+                <span class="lang-zh">也叫 Pomelo-kun</span>
+                <span class="lang-en">Also known as Pomelo-kun</span>
+            </p>
+            <div class="hero-tagline">
+                <span class="lang-zh">好煩喔但很可愛 🌱</span>
+                <span class="lang-en">Annoying but adorable 🌱</span>
+            </div>
+            
+            <div class="hero-actions">
+                <button class="cta-button" onclick="scrollToContent()">
+                    <span class="lang-zh">進入萌芽世界 🌱</span>
+                    <span class="lang-en">Enter Sprout World 🌱</span>
+                </button>
+                <button class="cta-button cta-secondary" onclick="startQuiz()">
+                    <span class="lang-zh">測試懶惰等級</span>
+                    <span class="lang-en">Test Laziness Level</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- About Section -->
+        <section class="section" id="about">
+            <h2>
+                <span class="lang-zh">關於 Seedcher</span>
+                <span class="lang-en">About Seedcher</span>
+            </h2>
+            <div class="about-card">
+                <div class="about-avatar">🟢</div>
+                <div>
+                    <ul class="bio
