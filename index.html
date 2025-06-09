@@ -1,4 +1,94 @@
-<ul class="bio-list">
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seedcher Shrine | 好煩喔但很可愛</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- External CSS -->
+</head>
+<body data-lang="zh">
+    <!-- Floating Elements Background -->
+    <div class="floating-elements" id="floatingElements"></div>
+
+    <!-- Language Toggle -->
+    <button class="language-toggle" onclick="toggleLanguage()" aria-label="Toggle between Chinese and English">
+        <span class="lang-zh">🇺🇸 English</span>
+        <span class="lang-en">🇨🇳 中文</span>
+    </button>
+
+    <!-- Rain Toggle -->
+    <button class="rain-toggle" onclick="toggleRain()" aria-label="Toggle rain mode">
+        <span class="lang-zh">🌧️ 雨天模式</span>
+        <span class="lang-en">🌧️ Rain Mode</span>
+    </button>
+
+    <!-- Rain Overlay -->
+    <div class="rain-overlay" id="rainOverlay"></div>
+
+    <!-- Enhanced Hero Section -->
+    <section class="hero">
+        <div class="floating-characters" id="floatingCharacters"></div>
+        
+        <div class="hero-character">
+            <div class="character-main">
+                🟢
+            </div>
+            <div class="character-emotions">
+                <div class="emotion-bubble">
+                    <span class="lang-zh">好煩喔</span>
+                    <span class="lang-en">So annoying</span>
+                </div>
+                <div class="emotion-bubble">
+                    <span class="lang-zh">想睡</span>
+                    <span class="lang-en">Wanna sleep</span>
+                </div>
+                <div class="emotion-bubble">
+                    <span class="lang-zh">買給我</span>
+                    <span class="lang-en">Buy it for me</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <h1>
+                <span class="lang-zh">Seedcher 的小窩</span>
+                <span class="lang-en">Seedcher's Cozy Corner</span>
+            </h1>
+            <p class="hero-subtitle">
+                <span class="lang-zh">也叫 Pomelo-kun</span>
+                <span class="lang-en">Also known as Pomelo-kun</span>
+            </p>
+            <div class="hero-tagline">
+                <span class="lang-zh">好煩喔但很可愛 🌱</span>
+                <span class="lang-en">Annoying but adorable 🌱</span>
+            </div>
+            
+            <div class="hero-actions">
+                <button class="cta-button" onclick="scrollToContent()" aria-label="Scroll to content">
+                    <span class="lang-zh">進入萌芽世界 🌱</span>
+                    <span class="lang-en">Enter Sprout World 🌱</span>
+                </button>
+                <button class="cta-button cta-secondary" onclick="startQuiz()" aria-label="Start laziness test">
+                    <span class="lang-zh">測試懶惰等級</span>
+                    <span class="lang-en">Test Laziness Level</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- About Section -->
+        <section class="section" id="about">
+            <h2>
+                <span class="lang-zh">關於 Seedcher</span>
+                <span class="lang-en">About Seedcher</span>
+            </h2>
+            <div class="about-card">
+                <div class="about-avatar">🟢</div>
+                <div>
+                    <ul class="bio-list">
                         <li>
                             <strong>
                                 <span class="lang-zh">物種:</span>
@@ -157,7 +247,7 @@
                             <span class="lang-zh">讓 Seedcher 透過科學的懶惰分析來評估你的嫩芽能量...</span>
                             <span class="lang-en">Let Seedcher scientifically analyze your sprout energy through laziness assessment...</span>
                         </p>
-                        <button class="cta-button" onclick="startQuiz()" style="margin: 2rem 0;">
+                        <button class="cta-button" onclick="startQuiz()" aria-label="Begin sprout test">
                             <span class="lang-zh">開始發芽測試 🌱</span>
                             <span class="lang-en">Begin Sprout Test 🌱</span>
                         </button>
@@ -180,19 +270,19 @@
                             <span class="lang-en">🛏️ Saturday 10 AM, what's your default position?</span>
                         </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(1, 5)">
+                            <button class="answer-btn" onclick="selectAnswer(1, 5)" aria-label="Still in bed option">
                                 <span class="lang-zh">還在床上，在內心激烈討論要不要起來上廁所</span>
                                 <span class="lang-en">Still in bed, having internal debates about bathroom needs</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(1, 3)">
+                            <button class="answer-btn" onclick="selectAnswer(1, 3)" aria-label="Pajama mode on couch option">
                                 <span class="lang-zh">睡衣狀態躺沙發，盯著天花板思考人生</span>
                                 <span class="lang-en">Pajama mode on couch, staring at ceiling contemplating life</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(1, 1)">
+                            <button class="answer-btn" onclick="selectAnswer(1, 1)" aria-label="Already dressed option">
                                 <span class="lang-zh">已經穿好衣服在做事（Seedcher 很擔心你）</span>
                                 <span class="lang-en">Already dressed and productive (Seedcher is worried about you)</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(1, 4)">
+                            <button class="answer-btn" onclick="selectAnswer(1, 4)" aria-label="Bed to bathroom cycle option">
                                 <span class="lang-zh">床→廁所→床，完美的生態循環</span>
                                 <span class="lang-en">Bed → bathroom → bed, perfect ecosystem cycle</span>
                             </button>
@@ -206,19 +296,19 @@
                             <span class="lang-en">📱 Phone at 5%, charger across the room. Your response?</span>
                         </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(2, 5)">
+                            <button class="answer-btn" onclick="selectAnswer(2, 5)" aria-label="Accept phone death option">
                                 <span class="lang-zh">接受死亡，讓手機安詳離世。世界終於安靜了</span>
                                 <span class="lang-en">Accept death, let phone rest in peace. Finally some quiet</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(2, 3)">
+                            <button class="answer-btn" onclick="selectAnswer(2, 3)" aria-label="Calculate need option">
                                 <span class="lang-zh">精密計算接下來2小時是否真的需要它</span>
                                 <span class="lang-en">Precisely calculate if I really need it for the next 2 hours</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(2, 1)">
+                            <button class="answer-btn" onclick="selectAnswer(2, 1)" aria-label="Charge immediately option">
                                 <span class="lang-zh">立刻起身充電，做個負責任的現代人</span>
                                 <span class="lang-en">Immediately get up to charge it like a responsible modern human</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(2, 4)">
+                            <button class="answer-btn" onclick="selectAnswer(2, 4)" aria-label="Call for charger option">
                                 <span class="lang-zh">大聲呼叫室友/家人幫忙拿充電器</span>
                                 <span class="lang-en">Loudly call roommate/family to bring the charger</span>
                             </button>
@@ -232,19 +322,19 @@
                             <span class="lang-en">🍕 Dinner time, your enthusiasm for cooking?</span>
                         </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(3, 5)">
+                            <button class="answer-btn" onclick="selectAnswer(3, 5)" aria-label="Instant noodles option">
                                 <span class="lang-zh">負無限大。泡麵就是米其林</span>
                                 <span class="lang-en">Negative infinity. Instant noodles are Michelin-starred</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(3, 4)">
+                            <button class="answer-btn" onclick="selectAnswer(3, 4)" aria-label="Microwave meals option">
                                 <span class="lang-zh">微波食品算是烹飪藝術</span>
                                 <span class="lang-en">Microwave meals count as culinary art</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(3, 2)">
+                            <button class="answer-btn" onclick="selectAnswer(3, 2)" aria-label="Order delivery option">
                                 <span class="lang-zh">可能會叫外送...或者把零食當正餐</span>
                                 <span class="lang-en">Might order delivery... or treat snacks as main course</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(3, 1)">
+                            <button class="answer-btn" onclick="selectAnswer(3, 1)" aria-label="Prepare meal option">
                                 <span class="lang-zh">已經準備食材和完整計劃</span>
                                 <span class="lang-en">Already prepared ingredients with complete meal plan</span>
                             </button>
@@ -258,19 +348,19 @@
                             <span class="lang-en">🧺 Laundry basket overflowing, your strategy?</span>
                         </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(4, 5)">
+                            <button class="answer-btn" onclick="selectAnswer(4, 5)" aria-label="Wear inside-out option">
                                 <span class="lang-zh">衣服反面穿。這叫環保再利用</span>
                                 <span class="lang-en">Wear clothes inside-out. It's called eco-friendly recycling</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(4, 4)">
+                            <button class="answer-btn" onclick="selectAnswer(4, 4)" aria-label="Buy new underwear option">
                                 <span class="lang-zh">網購新內衣比洗衣服簡單</span>
                                 <span class="lang-en">Online shopping new underwear is easier than laundry</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(4, 2)">
+                            <button class="answer-btn" onclick="selectAnswer(4, 2)" aria-label="Sniff test option">
                                 <span class="lang-zh">聞味道測試，重新定義「乾淨」標準</span>
                                 <span class="lang-en">Sniff test and redefine "clean" standards</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(4, 1)">
+                            <button class="answer-btn" onclick="selectAnswer(4, 1)" aria-label="Do laundry option">
                                 <span class="lang-zh">像個成熟大人一樣真的去洗衣服</span>
                                 <span class="lang-en">Actually do laundry like a functioning adult</span>
                             </button>
@@ -284,19 +374,19 @@
                             <span class="lang-en">💼 Assignment/work due tomorrow, today you will?</span>
                         </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(5, 5)">
+                            <button class="answer-btn" onclick="selectAnswer(5, 5)" aria-label="Think about it option">
                                 <span class="lang-zh">一邊做其他事一邊瘋狂思考這件事</span>
                                 <span class="lang-en">Intensely think about it while doing literally anything else</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(5, 4)">
+                            <button class="answer-btn" onclick="selectAnswer(5, 4)" aria-label="Stare at file option">
                                 <span class="lang-zh">打開文件，凝視5分鐘，然後關掉</span>
                                 <span class="lang-en">Open file, stare for 5 minutes, then close it</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(5, 3)">
+                            <button class="answer-btn" onclick="selectAnswer(5, 3)" aria-label="Complete 30% option">
                                 <span class="lang-zh">完成30%然後慶祝「進展良好」</span>
                                 <span class="lang-en">Complete 30% and celebrate "good progress"</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(5, 1)">
+                            <button class="answer-btn" onclick="selectAnswer(5, 1)" aria-label="Finish early option">
                                 <span class="lang-zh">提前完成（Seedcher 完全無法理解）</span>
                                 <span class="lang-en">Finish early (Seedcher completely doesn't understand)</span>
                             </button>
@@ -310,19 +400,19 @@
                             <span class="lang-en">🚿 Ideal shower duration when you have nothing to do?</span>
                         </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(6, 5)">
+                            <button class="answer-btn" onclick="selectAnswer(6, 5)" aria-label="45+ minutes option">
                                 <span class="lang-zh">45分鐘+。這是我的冥想聖地</span>
                                 <span class="lang-en">45+ minutes. This is my meditation sanctuary</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(6, 4)">
+                            <button class="answer-btn" onclick="selectAnswer(6, 4)" aria-label="Until hot water runs out option">
                                 <span class="lang-zh">直到熱水用完，然後再沖5分鐘冷水</span>
                                 <span class="lang-en">Until hot water runs out, then 5 more minutes of cold</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(6, 2)">
+                            <button class="answer-btn" onclick="selectAnswer(6, 2)" aria-label="15-20 minutes option">
                                 <span class="lang-zh">15-20分鐘，合理的放鬆時間</span>
                                 <span class="lang-en">15-20 minutes of reasonable relaxation</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(6, 1)">
+                            <button class="answer-btn" onclick="selectAnswer(6, 1)" aria-label="5-10 minutes option">
                                 <span class="lang-zh">5-10分鐘快速高效解決</span>
                                 <span class="lang-en">5-10 minutes quick and efficient</span>
                             </button>
@@ -336,19 +426,19 @@
                             <span class="lang-en">🎬 Netflix asks "Are you still watching?" Your inner monologue?</span>
                         </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(7, 5)">
+                            <button class="answer-btn" onclick="selectAnswer(7, 5)" aria-label="Feel attacked option">
                                 <span class="lang-zh">感受到人身攻擊但仍點擊「繼續播放」</span>
                                 <span class="lang-en">Feel personally attacked but still click "Continue Playing"</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(7, 4)">
+                            <button class="answer-btn" onclick="selectAnswer(7, 4)" aria-label="Start new series option">
                                 <span class="lang-zh">把這當成開始新劇的神聖信號</span>
                                 <span class="lang-en">Take this as sacred signal to start a new series</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(7, 2)">
+                            <button class="answer-btn" onclick="selectAnswer(7, 2)" aria-label="Turn off option">
                                 <span class="lang-zh">真的關掉去做點有意義的事</span>
                                 <span class="lang-en">Actually turn it off and do something meaningful</span>
                             </button>
-                            <button class="answer-btn" onclick="selectAnswer(7, 3)">
+                            <button class="answer-btn" onclick="selectAnswer(7, 3)" aria-label="Auto-play option">
                                 <span class="lang-zh">已經睡著了，讓它自動播放到天荒地老</span>
                                 <span class="lang-en">Already asleep, let it auto-play till the end of time</span>
                             </button>
@@ -406,7 +496,7 @@
                             </div>
                         </div>
 
-                        <button class="cta-button" onclick="resetQuiz()" style="margin-top: 2rem;">
+                        <button class="cta-button" onclick="resetQuiz()" style="margin-top: 2rem;" aria-label="Restart sprout test">
                             <span class="lang-zh">重新發芽測試 🌱</span>
                             <span class="lang-en">Re-sprout Test 🌱</span>
                         </button>
@@ -424,11 +514,11 @@
                 <span class="lang-en">Made with 🌱 and absolutely zero productivity</span>
             </p>
             <p style="margin-top: 1.5rem;">
-                <a href="#" style="margin: 0 1rem;">
+                <a href="https://line.me/stickers" style="margin: 0 1rem;">
                     <span class="lang-zh">下載 Seedcher 貼圖包</span>
                     <span class="lang-en">Download Seedcher Sticker Pack</span>
                 </a> | 
-                <a href="#" style="margin: 0 1rem;">
+                <a href="https://example.com" style="margin: 0 1rem;">
                     <span class="lang-zh">訪問原創作者</span>
                     <span class="lang-en">Visit Original Creator</span>
                 </a>
@@ -440,1295 +530,6 @@
         </div>
     </footer>
 
-    <script>
-        // Language toggle functionality
-        function toggleLanguage() {
-            const body = document.body;
-            const currentLang = body.getAttribute('data-lang');
-            const newLang = currentLang === 'zh' ? 'en' : 'zh';
-            body.setAttribute('data-lang', newLang);
-            
-            // Save language preference
-            try {
-                localStorage.setItem('seedcher-lang', newLang);
-            } catch(e) {}
-            
-            // Update progress counters if quiz is active
-            updateProgressCounters();
-        }
-
-        function updateProgressCounters() {
-            const current = currentQuestion + 1;
-            document.getElementById('currentQ').textContent = current;
-            document.getElementById('totalQ').textContent = totalQuestions;
-            document.getElementById('currentQ2').textContent = current;
-            document.getElementById('totalQ2').textContent = totalQuestions;
-        }
-
-        // Load saved language preference
-        function loadLanguagePreference() {
-            try {
-                const savedLang = localStorage.getItem('seedcher-lang');
-                if (savedLang) {
-                    document.body.setAttribute('data-lang', savedLang);
-                }
-            } catch(e) {}
-        }
-
-        // Quiz functionality with enhanced Seedcher messages
-        let currentQuestion = 0;
-        let quizAnswers = [];
-        const totalQuestions = 7;
-
-        const resultMessages = {
-            zh: {
-                titles: {
-                    deity: "懶惰至尊嫩芽 🌱👑",
-                    potato: "認證沙發嫩芽 🌱🛋️", 
-                    procrastinator: "專業拖延小樹苗 🌱📱",
-                    sloth: "休閒懶芽 🌱🦥",
-                    motivated: "可疑積極嫩芽 🌱🤔",
-                    monster: "生產力怪物芽 🌱😱"
-                },
-                messages: {
-                    deity: "Seedcher 對你表示最高敬意。你已經通過什麼都不做的藝術達到了嫩芽開悟境界。請傳授你的懶惰秘籍，大師。",
-                    potato: "Seedcher 深深佩服你的境界。你完美掌握了最小努力換取最大舒適的微妙平衡，真是嫩芽界的典範。",
-                    procrastinator: "Seedcher 認可地點點芽。你深諳優先順序的真諦：絕對沒有什麼事情是緊急的。",
-                    sloth: "Seedcher 覺得你表現不錯，但在懶惰修行方面還有成長空間。建議增加午睡頻率。",
-                    motivated: "Seedcher 對你的能量水平感到擔憂。你還好嗎？也許需要坐下來發發呆，讓嫩芽休息一下。",
-                    monster: "Seedcher 完全無法理解你。你哪來這麼多精力？這讓所有嫩芽都感到不安。請立即進入懶惰模式。"
-                }
-            },
-            en: {
-                titles: {
-                    deity: "Supreme Lazy Sprout 🌱👑",
-                    potato: "Certified Couch Sprout 🌱🛋️",
-                    procrastinator: "Professional Procrastination Seedling 🌱📱", 
-                    sloth: "Casual Lazy Sprout 🌱🦥",
-                    motivated: "Suspiciously Active Sprout 🌱🤔",
-                    monster: "Productivity Monster Sprout 🌱😱"
-                },
-                messages: {
-                    deity: "Seedcher bows in ultimate reverence. You've achieved sprout enlightenment through the art of doing absolutely nothing. Please teach us your lazy wisdom, master.",
-                    potato: "Seedcher deeply admires your mastery. You've perfected the delicate balance of minimum effort for maximum comfort - a true sprout role model.",
-                    procrastinator: "Seedcher nods approvingly with tiny sprout wiggles. You understand the true priority: absolutely nothing is ever urgent.",
-                    sloth: "Seedcher thinks you're doing okay, but there's room for growth in your laziness cultivation. More nap sessions recommended.",
-                    motivated: "Seedcher is concerned about your energy levels. Are you feeling alright? Maybe you need to sit down and let your inner sprout rest.",
-                    monster: "Seedcher is completely baffled by you. Where does all this energy come from? This disturbs all sprouts. Please enter lazy mode immediately."
-                }
-            }
-        };
-
-        function startQuiz() {
-            document.getElementById('quizStart').style.display = 'none';
-            document.getElementById('quizProgress').style.display = 'block';
-            document.getElementById('q1').classList.add('active');
-            updateProgress();
-        }
-
-        function selectAnswer(questionNum, score) {
-            quizAnswers[questionNum - 1] = score;
-            
-            // Hide current question
-            document.getElementById(`q${questionNum}`).classList.remove('active');
-            
-            // Show next question or results
-            if (questionNum < totalQuestions) {
-                currentQuestion = questionNum;
-                document.getElementById(`q${questionNum + 1}`).classList.add('active');
-                updateProgress();
-            } else {
-                // Quiz complete, show results
-                calculateResults();
-            }
-        }
-
-        function updateProgress() {
-            const progress = ((currentQuestion + 1) / totalQuestions) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            updateProgressCounters();
-        }
-
-        function calculateResults() {
-            const totalScore = quizAnswers.reduce((sum, score) => sum + score, 0);
-            const maxScore = totalQuestions * 5;
-            const percentage = Math.round((totalScore / maxScore) * 100);
-            
-            // Hide progress
-            document.getElementById('quizProgress').style.display = 'none';
-            
-            // Calculate individual scores with sprout-themed randomization
-            const sleepScore = Math.min(100, percentage + Math.floor(Math.random() * 20) - 10);
-            const couchScore = Math.min(100, percentage + Math.floor(Math.random() * 15) - 5);
-            const effortScore = Math.max(0, percentage - Math.floor(Math.random() * 25));
-            const procrastScore = Math.min(100, percentage + Math.floor(Math.random() * 10));
-            
-            // Determine title and message based on score and language
-            const currentLang = document.body.getAttribute('data-lang');
-            const messages = resultMessages[currentLang];
-            
-            let titleKey, messageKey;
-            if (percentage >= 90) {
-                titleKey = 'deity';
-                messageKey = 'deity';
-            } else if (percentage >= 75) {
-                titleKey = 'potato';
-                messageKey = 'potato';
-            } else if (percentage >= 60) {
-                titleKey = 'procrastinator';
-                messageKey = 'procrastinator';
-            } else if (percentage >= 40) {
-                titleKey = 'sloth';
-                messageKey = 'sloth';
-            } else if (percentage >= 25) {
-                titleKey = 'motivated';
-                messageKey = 'motivated';
-            } else {
-                titleKey = 'monster';
-                messageKey = 'monster';
-            }
-            
-            // Update results display
-            document.getElementById('totalScore').textContent = percentage + '%';
-            
-            // Update title and message for current language
-            const titleElement = document.getElementById('lazyTitle');
-            const messageElement = document.getElementById('lazyMessage');
-            
-            if (currentLang === 'zh') {
-                titleElement.querySelector('.lang-zh').textContent = messages.titles[titleKey];
-                messageElement.querySelector('.lang-zh').textContent = messages.messages[messageKey];
-            } else {
-                titleElement.querySelector('.lang-en').textContent = messages.titles[titleKey];
-                messageElement.querySelector('.lang-en').textContent = messages.messages[messageKey];
-            }
-            
-            document.getElementById('sleepScore').textContent = sleepScore + '%';
-            document.getElementById('couchScore').textContent = couchScore + '%';
-            document.getElementById('effortScore').textContent = effortScore + '%';
-            document.getElementById('procrastScore').textContent = procrastScore + '%';
-            
-            // Show results with celebration animation
-            document.getElementById('lazyResult').classList.add('show');
-        }
-
-        function resetQuiz() {
-            currentQuestion = 0;
-            quizAnswers = [];
-            
-            // Hide results
-            document.getElementById('lazyResult').classList.remove('show');
-            
-            // Hide all questions
-            for (let i = 1; i <= totalQuestions; i++) {
-                document.getElementById(`q${i}`).classList.remove('active');
-            }
-            
-            // Show start screen
-            document.getElementById('quizStart').style.display = 'block';
-            document.getElementById('quizProgress').style.display = 'none';
-        }
-
-        // Enhanced floating elements animation
-        function createFloatingElements() {
-            const container = document.getElementById('floatingElements');
-            const elements = ['🌱', '🌿', '💤', '😴', '🟢', '🍃'];
-            
-            setInterval(() => {
-                if (Math.random() > 0.8) {
-                    const element = document.createElement('div');
-                    element.className = 'floating-item';
-                    element.textContent = elements[Math.floor(Math.random() * elements.length)];
-                    element.style.left = Math.random() * 100 + '%';
-                    element.style.animationDuration = (Math.random() * 15 + 15) + 's';
-                    element.style.animationDelay = Math.random() * 3 + 's';
-                    container.appendChild(element);
-                    
-                    setTimeout(() => {
-                        element.remove();
-                    }, 25000);
-                }
-            }, 4000);
-        }
-
-        // Floating character variants for hero
-        function createFloatingCharacters() {
-            const container = document.getElementById('floatingCharacters');
-            const characters = ['🌱', '🟢', '💤'];
-            
-            setInterval(() => {
-                if (Math.random() > 0.85) {
-                    const char = document.createElement('div');
-                    char.className = 'mini-character';
-                    char.textContent = characters[Math.floor(Math.random() * characters.length)];
-                    char.style.left = Math.random() * 100 + '%';
-                    char.style.animationDuration = (Math.random() * 20 + 20) + 's';
-                    char.style.animationDelay = Math.random() * 5 + 's';
-                    container.appendChild(char);
-                    
-                    setTimeout(() => {
-                        char.remove();
-                    }, 30000);
-                }
-            }, 8000);
-        }
-
-        // Scroll animations with intersection observer
-        function observeElements() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -100px 0px'
-            });
-
-            document.querySelectorAll('.section').forEach(section => {
-                observer.observe(section);
-            });
-        }
-
-        // Smooth scroll to content
-        function scrollToContent() {
-            document.getElementById('about').scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-
-        // Enhanced rain mode
-        function toggleRain() {
-            const rainOverlay = document.getElementById('rainOverlay');
-            rainOverlay.classList.toggle('active');
-            
-            if (rainOverlay.classList.contains('active')) {
-                startRain();
-            } else {
-                stopRain();
-            }
-        }
-
-        let rainInterval;
-        function startRain() {
-            const rainOverlay = document.getElementById('rainOverlay');
-            
-            rainInterval = setInterval(() => {
-                const drop = document.createElement('div');
-                drop.className = 'raindrop';
-                drop.style.left = Math.random() * 100 + '%';
-                drop.style.animationDelay = Math.random() * 1 + 's';
-                drop.style.animationDuration = (Math.random() * 1 + 1) + 's';
-                rainOverlay.appendChild(drop);
-                
-                setTimeout(() => {
-                    drop.remove();
-                }, 3000);
-            }, 150);
-        }
-
-        function stopRain() {
-            clearInterval(rainInterval);
-            document.getElementById('rainOverlay').innerHTML = '';
-        }
-
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', () => {
-            loadLanguagePreference();
-            createFloatingElements();
-            createFloatingCharacters();
-            observeElements();
-            
-            // Enhanced GIF item interactions
-            document.querySelectorAll('.gif-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    item.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        item.style.transform = '';
-                    }, 150);
-                });
-                
-                // Add hover sound effect simulation
-                item.addEventListener('mouseenter', () => {
-                    item.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                });
-            });
-
-            // Add parallax effect to hero background
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const hero = document.querySelector('.hero');
-                if (hero) {
-                    hero.style.transform = `translateY(${scrolled * 0.1}px)`;
-                }
-            });
-        });
-
-        // Prevent right-click context menu on character elements (for that authentic cute factor)
-        document.addEventListener('contextmenu', (e) => {
-            if (e.target.closest('.character-main') || e.target.closest('.about-avatar')) {
-                e.preventDefault();
-            }
-        });
-
-        // Add special easter egg for konami code lovers
-        let konamiCode = [];
-        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
-        
-        document.addEventListener('keydown', (e) => {
-            konamiCode.push(e.code);
-            konamiCode = konamiCode.slice(-10);
-            
-            if (konamiCode.join('') === konamiSequence.join('')) {
-                // Secret Seedcher activation
-                document.body.style.filter = 'hue-rotate(180deg)';
-                setTimeout(() => {
-                    document.body.style.filter = '';
-                }, 3000);
-                
-                // Show special message
-                const msg = document.createElement('div');
-                msg.textContent = '🌱 Secret Seedcher mode activated! 🌱';
-                msg.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: var(--gradient-accent);
-                    color: white;
-                    padding: 2rem;
-                    border-radius: 20px;
-                    font-size: 1.5rem;
-                    z-index: 9999;
-                    animation: fadeInUp 0.5s ease;
-                `;
-                document.body.appendChild(msg);
-                
-                setTimeout(() => {
-                    msg.remove();
-                }, 3000);
-                
-                konamiCode = [];
-            }
-        });
-    </script>
+    <script src="scripts.js"></script> <!-- External JavaScript -->
 </body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seedcher Shrine | 好煩喔但很可愛</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-primary: #f0f8f0;
-            --bg-secondary: #e8f5e8;
-            --accent-mint: #7ed957;
-            --accent-sage: #5fb83b;
-            --accent-soft: #a8e6a3;
-            --text-primary: #2d5a2d;
-            --text-secondary: #4a7c59;
-            --white: #ffffff;
-            --shadow-soft: rgba(95, 184, 59, 0.2);
-            --shadow-strong: rgba(95, 184, 59, 0.4);
-            --gradient-hero: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 50%, #ffffff 100%);
-            --gradient-accent: linear-gradient(135deg, #7ed957 0%, #5fb83b 100%);
-        }
-
-        body {
-            font-family: 'Noto Sans SC', 'Quicksand', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ctext y='20' font-size='18'%3E🌱%3C/text%3E%3C/svg%3E"), auto;
-            overflow-x: hidden;
-        }
-
-        body[data-lang="en"] {
-            font-family: 'Quicksand', 'Noto Sans SC', sans-serif;
-        }
-
-        /* Floating Elements Background */
-        .floating-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .floating-item {
-            position: absolute;
-            font-size: 24px;
-            opacity: 0.4;
-            animation: float-gentle 20s infinite linear;
-        }
-
-        @keyframes float-gentle {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.4;
-            }
-            90% {
-                opacity: 0.4;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Enhanced Hero Section */
-        .hero {
-            min-height: 100vh;
-            background: var(--gradient-hero);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(126, 217, 87, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(95, 184, 59, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 60%, rgba(168, 230, 163, 0.1) 0%, transparent 50%);
-            animation: bg-shift 15s ease-in-out infinite;
-        }
-
-        @keyframes bg-shift {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            33% { transform: scale(1.1) rotate(1deg); }
-            66% { transform: scale(0.9) rotate(-1deg); }
-        }
-
-        .hero-character {
-            position: relative;
-            margin-bottom: 3rem;
-            z-index: 3;
-        }
-
-        .character-main {
-            width: 280px;
-            height: 280px;
-            background: var(--gradient-accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8rem;
-            margin: 0 auto;
-            box-shadow: 
-                0 30px 60px var(--shadow-soft),
-                0 0 0 20px rgba(255, 255, 255, 0.1),
-                inset 0 0 0 3px rgba(255, 255, 255, 0.3);
-            animation: character-float 4s ease-in-out infinite;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .character-main::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: shimmer-slow 6s ease-in-out infinite;
-        }
-
-        .character-main::after {
-            content: '🌱';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 4rem;
-            animation: sprout-wiggle 3s ease-in-out infinite;
-        }
-
-        @keyframes character-float {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-15px) scale(1.02); }
-        }
-
-        @keyframes shimmer-slow {
-            0% { transform: rotate(0deg); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: rotate(360deg); opacity: 0; }
-        }
-
-        @keyframes sprout-wiggle {
-            0%, 100% { transform: translateX(-50%) rotate(0deg); }
-            25% { transform: translateX(-50%) rotate(-5deg); }
-            75% { transform: translateX(-50%) rotate(5deg); }
-        }
-
-        .character-emotions {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .emotion-bubble {
-            background: var(--white);
-            padding: 1rem 1.5rem;
-            border-radius: 25px;
-            box-shadow: 0 10px 30px var(--shadow-soft);
-            font-size: 1.1rem;
-            animation: bubble-float 6s ease-in-out infinite;
-            border: 2px solid var(--accent-soft);
-        }
-
-        .emotion-bubble:nth-child(1) { animation-delay: 0s; }
-        .emotion-bubble:nth-child(2) { animation-delay: 2s; }
-        .emotion-bubble:nth-child(3) { animation-delay: 4s; }
-
-        @keyframes bubble-float {
-            0%, 100% { transform: translateY(0px); opacity: 0.7; }
-            50% { transform: translateY(-10px); opacity: 1; }
-        }
-
-        .hero-content {
-            z-index: 3;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 4px 20px var(--shadow-soft);
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: 1.4rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-style: italic;
-            opacity: 0.9;
-        }
-
-        .hero-tagline {
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 3rem;
-            padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 50px;
-            display: inline-block;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(126, 217, 87, 0.3);
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .cta-button {
-            background: var(--gradient-accent);
-            color: white;
-            border: none;
-            padding: 1.2rem 2.5rem;
-            font-size: 1.2rem;
-            font-family: inherit;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 15px 40px var(--shadow-soft);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            text-transform: none;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 25px 60px var(--shadow-strong);
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:active {
-            transform: translateY(-2px) scale(1.02);
-        }
-
-        .cta-secondary {
-            background: var(--white);
-            color: var(--accent-sage);
-            border: 2px solid var(--accent-sage);
-        }
-
-        .cta-secondary:hover {
-            background: var(--accent-sage);
-            color: white;
-        }
-
-        /* Floating Character Variants */
-        .floating-characters {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .mini-character {
-            position: absolute;
-            font-size: 3rem;
-            opacity: 0.3;
-            animation: mini-float 25s linear infinite;
-        }
-
-        @keyframes mini-float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-200px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Enhanced Content Sections */
-        .content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section {
-            margin: 8rem 0;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease;
-            background: var(--white);
-            border-radius: 30px;
-            padding: 4rem;
-            box-shadow: 0 30px 80px var(--shadow-soft);
-            border: 1px solid rgba(126, 217, 87, 0.1);
-        }
-
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section h2 {
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-        }
-
-        .section h2:after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--gradient-accent);
-            border-radius: 2px;
-        }
-
-        /* About Section Enhanced */
-        .about-card {
-            background: linear-gradient(135deg, var(--white) 0%, var(--bg-secondary) 100%);
-            border-radius: 25px;
-            padding: 4rem;
-            box-shadow: 0 25px 70px var(--shadow-soft);
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            align-items: center;
-            border: 2px solid rgba(126, 217, 87, 0.1);
-        }
-
-        .about-avatar {
-            width: 200px;
-            height: 200px;
-            background: var(--gradient-accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            margin: 0 auto;
-            box-shadow: 0 20px 50px var(--shadow-soft);
-            position: relative;
-            animation: gentle-pulse 4s ease-in-out infinite;
-        }
-
-        .about-avatar::after {
-            content: '🌱';
-            position: absolute;
-            top: -15px;
-            right: 10px;
-            font-size: 2.5rem;
-            animation: sprout-wiggle 3s ease-in-out infinite;
-        }
-
-        @keyframes gentle-pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .bio-list {
-            list-style: none;
-            space-y: 1rem;
-        }
-
-        .bio-list li {
-            padding: 1rem 0;
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-            border-bottom: 1px solid rgba(126, 217, 87, 0.1);
-        }
-
-        .bio-list li:last-child {
-            border-bottom: none;
-        }
-
-        .bio-list strong {
-            color: var(--accent-sage);
-            min-width: 120px;
-            font-weight: 600;
-        }
-
-        /* Controls */
-        .language-toggle, .rain-toggle {
-            position: fixed;
-            top: 25px;
-            background: var(--white);
-            color: var(--accent-sage);
-            border: 2px solid var(--accent-sage);
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            cursor: pointer;
-            z-index: 10;
-            font-family: inherit;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px var(--shadow-soft);
-        }
-
-        .language-toggle {
-            left: 25px;
-        }
-
-        .rain-toggle {
-            right: 25px;
-        }
-
-        .language-toggle:hover, .rain-toggle:hover {
-            background: var(--accent-sage);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px var(--shadow-strong);
-        }
-
-        /* Language specific styles */
-        body[data-lang="zh"] .lang-en { display: none; }
-        body[data-lang="en"] .lang-zh { display: none; }
-
-        /* GIF Gallery Enhanced */
-        .gif-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .gif-item {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 1.5rem;
-            box-shadow: 0 15px 40px var(--shadow-soft);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid rgba(126, 217, 87, 0.1);
-        }
-
-        .gif-item:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 25px 60px var(--shadow-strong);
-        }
-
-        .gif-placeholder {
-            width: 100%;
-            height: 180px;
-            background: var(--gradient-accent);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gif-placeholder::after {
-            content: '🌱';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1.5rem;
-            opacity: 0.7;
-        }
-
-        .mood-tag {
-            background: var(--gradient-accent);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 1rem;
-            box-shadow: 0 5px 15px var(--shadow-soft);
-        }
-
-        /* Quiz Section Enhanced */
-        .lazy-generator {
-            background: linear-gradient(135deg, var(--white) 0%, var(--bg-secondary) 100%);
-            border-radius: 25px;
-            padding: 4rem;
-            text-align: center;
-            box-shadow: 0 25px 70px var(--shadow-soft);
-            border: 2px solid rgba(126, 217, 87, 0.1);
-        }
-
-        .quiz-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .question-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 3rem;
-            margin: 2rem 0;
-            display: none;
-            animation: slideIn 0.6s ease;
-            box-shadow: 0 20px 50px var(--shadow-soft);
-            border: 1px solid rgba(126, 217, 87, 0.2);
-        }
-
-        .question-card.active {
-            display: block;
-        }
-
-        .question-card h4 {
-            color: var(--accent-sage);
-            margin-bottom: 2rem;
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .answer-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .answer-btn {
-            background: var(--white);
-            border: 2px solid var(--accent-soft);
-            padding: 1.5rem;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            font-size: 1rem;
-            text-align: left;
-            box-shadow: 0 5px 15px rgba(126, 217, 87, 0.1);
-        }
-
-        .answer-btn:hover {
-            background: var(--gradient-accent);
-            color: white;
-            transform: translateX(10px);
-            box-shadow: 0 10px 30px var(--shadow-soft);
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 12px;
-            background: var(--bg-secondary);
-            border-radius: 6px;
-            margin: 3rem 0;
-            overflow: hidden;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient-accent);
-            width: 0%;
-            transition: width 0.6s ease;
-            border-radius: 6px;
-            position: relative;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: progress-shine 2s ease-in-out infinite;
-        }
-
-        @keyframes progress-shine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .generator-result {
-            margin: 3rem 0;
-            padding: 3rem;
-            background: var(--white);
-            border-radius: 20px;
-            display: none;
-            box-shadow: 0 20px 50px var(--shadow-soft);
-            border: 2px solid var(--accent-soft);
-        }
-
-        .generator-result.show {
-            display: block;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .score-display {
-            font-size: 4rem;
-            font-weight: bold;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 1rem 0;
-        }
-
-        .score-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .score-item {
-            background: var(--bg-secondary);
-            padding: 1.5rem;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 25px var(--shadow-soft);
-            transition: transform 0.3s ease;
-        }
-
-        .score-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .score-item .emoji {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .score-item .percentage {
-            font-weight: bold;
-            color: var(--accent-sage);
-            font-size: 1.2rem;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Footer Enhanced */
-        .footer {
-            background: var(--gradient-accent);
-            color: white;
-            text-align: center;
-            padding: 4rem 2rem;
-            margin-top: 8rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ctext x='30' y='35' text-anchor='middle' font-size='20'%3E🌱%3C/text%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.1;
-        }
-
-        .footer a {
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer a:hover {
-            color: white;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        /* Rain Mode Enhanced */
-        .rain-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 3;
-            display: none;
-        }
-
-        .rain-overlay.active {
-            display: block;
-        }
-
-        .raindrop {
-            position: absolute;
-            width: 2px;
-            height: 25px;
-            background: linear-gradient(transparent, var(--accent-mint));
-            animation: rain-fall 1.5s linear infinite;
-            border-radius: 1px;
-        }
-
-        @keyframes rain-fall {
-            0% {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .character-main {
-                width: 220px;
-                height: 220px;
-                font-size: 6rem;
-            }
-
-            .about-card {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 2rem;
-            }
-
-            .gif-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1.5rem;
-            }
-
-            .section {
-                margin: 4rem 0;
-                padding: 2rem;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .emotion-bubble {
-                font-size: 0.9rem;
-                padding: 0.8rem 1.2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .language-toggle, .rain-toggle {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            .character-main {
-                width: 180px;
-                height: 180px;
-                font-size: 4rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
-</head>
-<body data-lang="zh">
-    <!-- Floating Elements Background -->
-    <div class="floating-elements" id="floatingElements"></div>
-
-    <!-- Language Toggle -->
-    <button class="language-toggle" onclick="toggleLanguage()">
-        <span class="lang-zh">🇺🇸 English</span>
-        <span class="lang-en">🇨🇳 中文</span>
-    </button>
-
-    <!-- Rain Toggle -->
-    <button class="rain-toggle" onclick="toggleRain()">
-        <span class="lang-zh">🌧️ 雨天模式</span>
-        <span class="lang-en">🌧️ Rain Mode</span>
-    </button>
-
-    <!-- Rain Overlay -->
-    <div class="rain-overlay" id="rainOverlay"></div>
-
-    <!-- Enhanced Hero Section -->
-    <section class="hero">
-        <div class="floating-characters" id="floatingCharacters"></div>
-        
-        <div class="hero-character">
-            <div class="character-main">
-                🟢
-            </div>
-            <div class="character-emotions">
-                <div class="emotion-bubble">
-                    <span class="lang-zh">好煩喔</span>
-                    <span class="lang-en">So annoying</span>
-                </div>
-                <div class="emotion-bubble">
-                    <span class="lang-zh">想睡</span>
-                    <span class="lang-en">Wanna sleep</span>
-                </div>
-                <div class="emotion-bubble">
-                    <span class="lang-zh">買給我</span>
-                    <span class="lang-en">Buy it for me</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="hero-content">
-            <h1>
-                <span class="lang-zh">Seedcher 的小窩</span>
-                <span class="lang-en">Seedcher's Cozy Corner</span>
-            </h1>
-            <p class="hero-subtitle">
-                <span class="lang-zh">也叫 Pomelo-kun</span>
-                <span class="lang-en">Also known as Pomelo-kun</span>
-            </p>
-            <div class="hero-tagline">
-                <span class="lang-zh">好煩喔但很可愛 🌱</span>
-                <span class="lang-en">Annoying but adorable 🌱</span>
-            </div>
-            
-            <div class="hero-actions">
-                <button class="cta-button" onclick="scrollToContent()">
-                    <span class="lang-zh">進入萌芽世界 🌱</span>
-                    <span class="lang-en">Enter Sprout World 🌱</span>
-                </button>
-                <button class="cta-button cta-secondary" onclick="startQuiz()">
-                    <span class="lang-zh">測試懶惰等級</span>
-                    <span class="lang-en">Test Laziness Level</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <div class="content">
-        <!-- About Section -->
-        <section class="section" id="about">
-            <h2>
-                <span class="lang-zh">關於 Seedcher</span>
-                <span class="lang-en">About Seedcher</span>
-            </h2>
-            <div class="about-card">
-                <div class="about-avatar">🟢</div>
-                <div>
-                    <ul class="bio
+</html>
