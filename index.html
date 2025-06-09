@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RainPomelo Shrine | Too lazy to talk. Too cute to ignore.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -24,12 +24,16 @@
         }
 
         body {
-            font-family: 'Quicksand', sans-serif;
+            font-family: 'Noto Sans SC', 'Quicksand', sans-serif;
             background: var(--gradient-main);
             color: var(--text-primary);
             line-height: 1.6;
             cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ctext y='20' font-size='20'%3E🍃%3C/text%3E%3C/svg%3E"), auto;
             overflow-x: hidden;
+        }
+
+        body[data-lang="en"] {
+            font-family: 'Quicksand', 'Noto Sans SC', sans-serif;
         }
 
         .floating-leaves {
@@ -504,14 +508,53 @@
             background: var(--accent-sage);
             transform: scale(1.05);
         }
+
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--accent-sage);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 10;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .language-toggle:hover {
+            background: var(--accent-mint);
+            transform: scale(1.05);
+        }
+
+        /* Language specific styles */
+        body[data-lang="zh"] .lang-en {
+            display: none;
+        }
+
+        body[data-lang="en"] .lang-zh {
+            display: none;
+        }
     </style>
 </head>
-<body>
+<body data-lang="zh">
     <!-- Floating Leaves Background -->
     <div class="floating-leaves" id="floatingLeaves"></div>
 
+    <!-- Language Toggle -->
+    <button class="language-toggle" onclick="toggleLanguage()">
+        <span class="lang-zh">🇺🇸 English</span>
+        <span class="lang-en">🇨🇳 中文</span>
+    </button>
+
     <!-- Rain Toggle -->
-    <button class="toggle-rain" onclick="toggleRain()">🌧️ Rain Mode</button>
+    <button class="toggle-rain" onclick="toggleRain()">
+        <span class="lang-zh">🌧️ 雨天模式</span>
+        <span class="lang-en">🌧️ Rain Mode</span>
+    </button>
 
     <!-- Rain Overlay -->
     <div class="rain-overlay" id="rainOverlay"></div>
@@ -521,31 +564,84 @@
         <div class="hero-gif">
             🍊💤
         </div>
-        <h1>Welcome to RainPomelo's World</h1>
-        <p>Just vibes. No stress.</p>
-        <button class="lazy-button" onclick="scrollToContent()">Enter... I guess 🍃</button>
+        <h1>
+            <span class="lang-zh">欢迎来到水沐柚子的世界</span>
+            <span class="lang-en">Welcome to RainPomelo's World</span>
+        </h1>
+        <p>
+            <span class="lang-zh">只要氛围，不要压力。</span>
+            <span class="lang-en">Just vibes. No stress.</span>
+        </p>
+        <button class="lazy-button" onclick="scrollToContent()">
+            <span class="lang-zh">进入...我猜 🍃</span>
+            <span class="lang-en">Enter... I guess 🍃</span>
+        </button>
     </section>
 
     <!-- Main Content -->
     <div class="content">
         <!-- About Section -->
         <section class="section" id="about">
-            <h2>About RainPomelo</h2>
+            <h2>
+                <span class="lang-zh">关于水沐柚子</span>
+                <span class="lang-en">About RainPomelo</span>
+            </h2>
             <div class="about-card">
                 <div class="about-avatar">🍊✨</div>
                 <div>
                     <ul class="bio-list">
-                        <li><strong>Species:</strong> ✨ Pomelo spirit blob</li>
-                        <li><strong>Hobby:</strong> ✨ Doing absolutely nothing</li>
-                        <li><strong>Phrase:</strong> "Ughhh... so sleepy..."</li>
-                        <li><strong>Mood:</strong> Perpetually exhausted but cute</li>
-                        <li><strong>Powers:</strong> Making everyone want to nap</li>
+                        <li>
+                            <strong>
+                                <span class="lang-zh">物种:</span>
+                                <span class="lang-en">Species:</span>
+                            </strong> 
+                            <span class="lang-zh">✨ 柚子精神团子</span>
+                            <span class="lang-en">✨ Pomelo spirit blob</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <span class="lang-zh">爱好:</span>
+                                <span class="lang-en">Hobby:</span>
+                            </strong> 
+                            <span class="lang-zh">✨ 什么都不做</span>
+                            <span class="lang-en">✨ Doing absolutely nothing</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <span class="lang-zh">口头禅:</span>
+                                <span class="lang-en">Phrase:</span>
+                            </strong> 
+                            <span class="lang-zh">"唔...好困..."</span>
+                            <span class="lang-en">"Ughhh... so sleepy..."</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <span class="lang-zh">心情:</span>
+                                <span class="lang-en">Mood:</span>
+                            </strong> 
+                            <span class="lang-zh">永远疲惫但很可爱</span>
+                            <span class="lang-en">Perpetually exhausted but cute</span>
+                        </li>
+                        <li>
+                            <strong>
+                                <span class="lang-zh">超能力:</span>
+                                <span class="lang-en">Powers:</span>
+                            </strong> 
+                            <span class="lang-zh">让每个人都想睡觉</span>
+                            <span class="lang-en">Making everyone want to nap</span>
+                        </li>
                     </ul>
                     <p style="margin-top: 1.5rem; font-style: italic;">
-                        Born from the collective desire to just... not today, RainPomelo represents 
-                        that perfect balance of emotional cuteness and social burnout. A gentle 
-                        reminder that it's okay to be soft, sleepy, and absolutely adorable while 
-                        avoiding all responsibilities.
+                        <span class="lang-zh">
+                            水沐柚子诞生于大家集体想要"今天就算了吧"的愿望，代表着情感可爱和社交倦怠的完美平衡。
+                            温柔地提醒我们，保持柔软、困倦和超级可爱的同时逃避所有责任是完全可以的。
+                        </span>
+                        <span class="lang-en">
+                            Born from the collective desire to just... not today, RainPomelo represents 
+                            that perfect balance of emotional cuteness and social burnout. A gentle 
+                            reminder that it's okay to be soft, sleepy, and absolutely adorable while 
+                            avoiding all responsibilities.
+                        </span>
                     </p>
                 </div>
             </div>
@@ -553,51 +649,100 @@
 
         <!-- GIF Gallery -->
         <section class="section" id="gallery">
-            <h2>GIF Gallery</h2>
+            <h2>
+                <span class="lang-zh">表情包画廊</span>
+                <span class="lang-en">GIF Gallery</span>
+            </h2>
             <div class="gif-grid">
                 <div class="gif-item">
                     <div class="gif-placeholder">📚💤</div>
-                    <span class="mood-tag">🍃 Chill</span>
-                    <p>Reading is hard work...</p>
+                    <span class="mood-tag">
+                        <span class="lang-zh">🍃 佛系</span>
+                        <span class="lang-en">🍃 Chill</span>
+                    </span>
+                    <p>
+                        <span class="lang-zh">读书好累...</span>
+                        <span class="lang-en">Reading is hard work...</span>
+                    </p>
                 </div>
                 <div class="gif-item">
                     <div class="gif-placeholder">🛏️😴</div>
-                    <span class="mood-tag">💤 Sleepy</span>
-                    <p>Five more minutes...</p>
+                    <span class="mood-tag">
+                        <span class="lang-zh">💤 困困</span>
+                        <span class="lang-en">💤 Sleepy</span>
+                    </span>
+                    <p>
+                        <span class="lang-zh">再睡五分钟...</span>
+                        <span class="lang-en">Five more minutes...</span>
+                    </p>
                 </div>
                 <div class="gif-item">
                     <div class="gif-placeholder">🛍️😫</div>
-                    <span class="mood-tag">🛍️ Whiny</span>
-                    <p>But I don't wanna...</p>
+                    <span class="mood-tag">
+                        <span class="lang-zh">🛍️ 撒娇</span>
+                        <span class="lang-en">🛍️ Whiny</span>
+                    </span>
+                    <p>
+                        <span class="lang-zh">但是我不想要...</span>
+                        <span class="lang-en">But I don't wanna...</span>
+                    </p>
                 </div>
                 <div class="gif-item">
                     <div class="gif-placeholder">😤💨</div>
-                    <span class="mood-tag">😤 Mad</span>
-                    <p>Hmph! So annoying!</p>
+                    <span class="mood-tag">
+                        <span class="lang-zh">😤 生气</span>
+                        <span class="lang-en">😤 Mad</span>
+                    </span>
+                    <p>
+                        <span class="lang-zh">哼！好烦！</span>
+                        <span class="lang-en">Hmph! So annoying!</span>
+                    </p>
                 </div>
                 <div class="gif-item">
                     <div class="gif-placeholder">🫠💧</div>
-                    <span class="mood-tag">🫠 Melted</span>
-                    <p>I can't even...</p>
+                    <span class="mood-tag">
+                        <span class="lang-zh">🫠 融化</span>
+                        <span class="lang-en">🫠 Melted</span>
+                    </span>
+                    <p>
+                        <span class="lang-zh">我不行了...</span>
+                        <span class="lang-en">I can't even...</span>
+                    </p>
                 </div>
                 <div class="gif-item">
                     <div class="gif-placeholder">🍊🌈</div>
-                    <span class="mood-tag">✨ Magical</span>
-                    <p>Rare motivated moment</p>
+                    <span class="mood-tag">
+                        <span class="lang-zh">✨ 魔法</span>
+                        <span class="lang-en">✨ Magical</span>
+                    </span>
+                    <p>
+                        <span class="lang-zh">罕见的积极时刻</span>
+                        <span class="lang-en">Rare motivated moment</span>
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- Lazy Generator -->
+        <!-- Laziness Assessment -->
         <section class="section" id="generator">
-            <h2>Laziness Assessment</h2>
+            <h2>
+                <span class="lang-zh">懒惰程度评估</span>
+                <span class="lang-en">Laziness Assessment</span>
+            </h2>
             <div class="lazy-generator">
                 <div class="quiz-container">
                     <div id="quizStart">
-                        <h3>How lazy are you today?</h3>
-                        <p>Let RainPomelo scientifically analyze your laziness levels through this totally legitimate quiz...</p>
+                        <h3>
+                            <span class="lang-zh">你今天有多懒？</span>
+                            <span class="lang-en">How lazy are you today?</span>
+                        </h3>
+                        <p>
+                            <span class="lang-zh">让水沐柚子通过这个完全合法的测试科学分析你的懒惰程度...</span>
+                            <span class="lang-en">Let RainPomelo scientifically analyze your laziness levels through this totally legitimate quiz...</span>
+                        </p>
                         <button class="lazy-button" onclick="startQuiz()" style="margin: 2rem 0;">
-                            Begin Laziness Assessment 🍊
+                            <span class="lang-zh">开始懒惰程度评估 🍊</span>
+                            <span class="lang-en">Begin Laziness Assessment 🍊</span>
                         </button>
                     </div>
 
@@ -605,118 +750,248 @@
                         <div class="progress-bar">
                             <div class="progress-fill" id="progressFill"></div>
                         </div>
-                        <p><span id="currentQ">1</span> of <span id="totalQ">7</span> questions</p>
+                        <p>
+                            <span class="lang-zh">第 <span id="currentQ">1</span> 题，共 <span id="totalQ">7</span> 题</span>
+                            <span class="lang-en"><span id="currentQ2">1</span> of <span id="totalQ2">7</span> questions</span>
+                        </p>
                     </div>
 
                     <!-- Question 1 -->
                     <div class="question-card" id="q1">
-                        <h4>🛏️ It's 10 AM on a Saturday. What's your current position?</h4>
+                        <h4>
+                            <span class="lang-zh">🛏️ 周六上午10点，你现在的姿势是？</span>
+                            <span class="lang-en">🛏️ It's 10 AM on a Saturday. What's your current position?</span>
+                        </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(1, 5)">Still in bed, debating if I need to pee badly enough to get up</button>
-                            <button class="answer-btn" onclick="selectAnswer(1, 3)">On the couch in pajamas, contemplating breakfast</button>
-                            <button class="answer-btn" onclick="selectAnswer(1, 1)">Fully dressed and productive (RainPomelo is concerned)</button>
-                            <button class="answer-btn" onclick="selectAnswer(1, 4)">Bed → bathroom → back to bed (the perfect cycle)</button>
+                            <button class="answer-btn" onclick="selectAnswer(1, 5)">
+                                <span class="lang-zh">还在床上，在思考是否真的需要起来上厕所</span>
+                                <span class="lang-en">Still in bed, debating if I need to pee badly enough to get up</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(1, 3)">
+                                <span class="lang-zh">穿着睡衣在沙发上，考虑早餐的事情</span>
+                                <span class="lang-en">On the couch in pajamas, contemplating breakfast</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(1, 1)">
+                                <span class="lang-zh">已经穿好衣服在做事（水沐柚子表示担心）</span>
+                                <span class="lang-en">Fully dressed and productive (RainPomelo is concerned)</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(1, 4)">
+                                <span class="lang-zh">床→厕所→回床上（完美循环）</span>
+                                <span class="lang-en">Bed → bathroom → back to bed (the perfect cycle)</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 2 -->
                     <div class="question-card" id="q2">
-                        <h4>📱 Your phone is at 5% battery. Your charger is across the room. You...</h4>
+                        <h4>
+                            <span class="lang-zh">📱 你的手机只剩5%电量，充电器在房间另一边，你会...</span>
+                            <span class="lang-en">📱 Your phone is at 5% battery. Your charger is across the room. You...</span>
+                        </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(2, 5)">Accept your fate and let it die. Peace at last.</button>
-                            <button class="answer-btn" onclick="selectAnswer(2, 3)">Calculate if you REALLY need it for the next few hours</button>
-                            <button class="answer-btn" onclick="selectAnswer(2, 1)">Immediately get up and charge it like a responsible adult</button>
-                            <button class="answer-btn" onclick="selectAnswer(2, 4)">Ask someone else to bring you the charger</button>
+                            <button class="answer-btn" onclick="selectAnswer(2, 5)">
+                                <span class="lang-zh">接受命运，让它自生自灭。终于清净了。</span>
+                                <span class="lang-en">Accept your fate and let it die. Peace at last.</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(2, 3)">
+                                <span class="lang-zh">计算一下接下来几小时是否真的需要它</span>
+                                <span class="lang-en">Calculate if you REALLY need it for the next few hours</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(2, 1)">
+                                <span class="lang-zh">立即起来充电，像个负责任的成年人</span>
+                                <span class="lang-en">Immediately get up and charge it like a responsible adult</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(2, 4)">
+                                <span class="lang-zh">叫别人帮你拿充电器</span>
+                                <span class="lang-en">Ask someone else to bring you the charger</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 3 -->
                     <div class="question-card" id="q3">
-                        <h4>🍕 Dinner time approaches. Your energy level for cooking is...</h4>
+                        <h4>
+                            <span class="lang-zh">🍕 晚饭时间到了，你对做饭的动力水平是...</span>
+                            <span class="lang-en">🍕 Dinner time approaches. Your energy level for cooking is...</span>
+                        </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(3, 5)">Negative. Cereal is a meal, right?</button>
-                            <button class="answer-btn" onclick="selectAnswer(3, 4)">Microwave popcorn counts as cooking</button>
-                            <button class="answer-btn" onclick="selectAnswer(3, 2)">Maybe I'll order delivery... or just snack</button>
-                            <button class="answer-btn" onclick="selectAnswer(3, 1)">I have a meal planned and ingredients ready</button>
+                            <button class="answer-btn" onclick="selectAnswer(3, 5)">
+                                <span class="lang-zh">负数。麦片算正餐，对吧？</span>
+                                <span class="lang-en">Negative. Cereal is a meal, right?</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(3, 4)">
+                                <span class="lang-zh">微波爆米花也算做饭</span>
+                                <span class="lang-en">Microwave popcorn counts as cooking</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(3, 2)">
+                                <span class="lang-zh">也许我会点外卖...或者就吃零食</span>
+                                <span class="lang-en">Maybe I'll order delivery... or just snack</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(3, 1)">
+                                <span class="lang-zh">我已经计划好了餐食并准备了食材</span>
+                                <span class="lang-en">I have a meal planned and ingredients ready</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 4 -->
                     <div class="question-card" id="q4">
-                        <h4>🧺 Your laundry basket is full. Your response?</h4>
+                        <h4>
+                            <span class="lang-zh">🧺 你的洗衣篮满了，你的反应是？</span>
+                            <span class="lang-en">🧺 Your laundry basket is full. Your response?</span>
+                        </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(4, 5)">Wear clothes inside-out. Innovation!</button>
-                            <button class="answer-btn" onclick="selectAnswer(4, 4)">Buy new underwear instead of doing laundry</button>
-                            <button class="answer-btn" onclick="selectAnswer(4, 2)">Do the sniff test and rewear the 'clean enough' items</button>
-                            <button class="answer-btn" onclick="selectAnswer(4, 1)">Actually do the laundry like a functioning adult</button>
+                            <button class="answer-btn" onclick="selectAnswer(4, 5)">
+                                <span class="lang-zh">把衣服翻过来穿。创新！</span>
+                                <span class="lang-en">Wear clothes inside-out. Innovation!</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(4, 4)">
+                                <span class="lang-zh">买新内衣而不是洗衣服</span>
+                                <span class="lang-en">Buy new underwear instead of doing laundry</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(4, 2)">
+                                <span class="lang-zh">闻闻味道，重新穿"足够干净"的衣服</span>
+                                <span class="lang-en">Do the sniff test and rewear the 'clean enough' items</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(4, 1)">
+                                <span class="lang-zh">像个正常成年人一样真的去洗衣服</span>
+                                <span class="lang-en">Actually do the laundry like a functioning adult</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 5 -->
                     <div class="question-card" id="q5">
-                        <h4>💼 You have a task due tomorrow. Today you will...</h4>
+                        <h4>
+                            <span class="lang-zh">💼 你有个任务明天要交，今天你会...</span>
+                            <span class="lang-en">💼 You have a task due tomorrow. Today you will...</span>
+                        </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(5, 5)">Think about it intensely while doing literally anything else</button>
-                            <button class="answer-btn" onclick="selectAnswer(5, 4)">Open the document, stare at it, then close it</button>
-                            <button class="answer-btn" onclick="selectAnswer(5, 3)">Do 30% of it and call it 'good progress'</button>
-                            <button class="answer-btn" onclick="selectAnswer(5, 1)">Actually complete it early (RainPomelo doesn't understand you)</button>
+                            <button class="answer-btn" onclick="selectAnswer(5, 5)">
+                                <span class="lang-zh">一边做别的事一边认真思考这个任务</span>
+                                <span class="lang-en">Think about it intensely while doing literally anything else</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(5, 4)">
+                                <span class="lang-zh">打开文档，盯着看，然后关掉</span>
+                                <span class="lang-en">Open the document, stare at it, then close it</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(5, 3)">
+                                <span class="lang-zh">做30%，然后称其为"良好进展"</span>
+                                <span class="lang-en">Do 30% of it and call it 'good progress'</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(5, 1)">
+                                <span class="lang-zh">提前完成（水沐柚子不理解你）</span>
+                                <span class="lang-en">Actually complete it early (RainPomelo doesn't understand you)</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 6 -->
                     <div class="question-card" id="q6">
-                        <h4>🚿 Your ideal shower duration when you have nowhere to be?</h4>
+                        <h4>
+                            <span class="lang-zh">🚿 当你没有任何安排时，理想的洗澡时长是？</span>
+                            <span class="lang-en">🚿 Your ideal shower duration when you have nowhere to be?</span>
+                        </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(6, 5)">45+ minutes. It's my meditation chamber.</button>
-                            <button class="answer-btn" onclick="selectAnswer(6, 4)">Until the hot water runs out, then 5 more minutes</button>
-                            <button class="answer-btn" onclick="selectAnswer(6, 2)">15-20 minutes of reasonable relaxation</button>
-                            <button class="answer-btn" onclick="selectAnswer(6, 1)">Quick and efficient, 5-10 minutes max</button>
+                            <button class="answer-btn" onclick="selectAnswer(6, 5)">
+                                <span class="lang-zh">45分钟以上。这是我的冥想室。</span>
+                                <span class="lang-en">45+ minutes. It's my meditation chamber.</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(6, 4)">
+                                <span class="lang-zh">直到热水用完，然后再洗5分钟</span>
+                                <span class="lang-en">Until the hot water runs out, then 5 more minutes</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(6, 2)">
+                                <span class="lang-zh">15-20分钟的合理放松</span>
+                                <span class="lang-en">15-20 minutes of reasonable relaxation</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(6, 1)">
+                                <span class="lang-zh">快速高效，最多5-10分钟</span>
+                                <span class="lang-en">Quick and efficient, 5-10 minutes max</span>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Question 7 -->
                     <div class="question-card" id="q7">
-                        <h4>🎬 Netflix asks "Are you still watching?" You...</h4>
+                        <h4>
+                            <span class="lang-zh">🎬 Netflix问"您还在观看吗？"你会...</span>
+                            <span class="lang-en">🎬 Netflix asks "Are you still watching?" You...</span>
+                        </h4>
                         <div class="answer-options">
-                            <button class="answer-btn" onclick="selectAnswer(7, 5)">Feel personally attacked but click 'Continue Watching'</button>
-                            <button class="answer-btn" onclick="selectAnswer(7, 4)">Take it as a sign to start a new series</button>
-                            <button class="answer-btn" onclick="selectAnswer(7, 2)">Actually stop and do something productive</button>
-                            <button class="answer-btn" onclick="selectAnswer(7, 3)">Fall asleep and let it auto-play whatever</button>
+                            <button class="answer-btn" onclick="selectAnswer(7, 5)">
+                                <span class="lang-zh">感到人身攻击但还是点击"继续观看"</span>
+                                <span class="lang-en">Feel personally attacked but click 'Continue Watching'</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(7, 4)">
+                                <span class="lang-zh">把这当作开始新剧集的信号</span>
+                                <span class="lang-en">Take it as a sign to start a new series</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(7, 2)">
+                                <span class="lang-zh">真的停下来去做点有用的事</span>
+                                <span class="lang-en">Actually stop and do something productive</span>
+                            </button>
+                            <button class="answer-btn" onclick="selectAnswer(7, 3)">
+                                <span class="lang-zh">睡着了，让它自动播放</span>
+                                <span class="lang-en">Fall asleep and let it auto-play whatever</span>
+                            </button>
                         </div>
                     </div>
 
                     <div class="generator-result" id="lazyResult">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">🍊💤</div>
-                        <h4>Your Laziness Assessment Results</h4>
+                        <h4>
+                            <span class="lang-zh">你的懒惰程度评估结果</span>
+                            <span class="lang-en">Your Laziness Assessment Results</span>
+                        </h4>
                         <div class="score-display" id="totalScore">85%</div>
-                        <h4 id="lazyTitle">Certified Couch Potato</h4>
-                        <p id="lazyMessage">RainPomelo is impressed by your dedication to the art of doing nothing.</p>
+                        <h4 id="lazyTitle">
+                            <span class="lang-zh">认证沙发土豆</span>
+                            <span class="lang-en">Certified Couch Potato</span>
+                        </h4>
+                        <p id="lazyMessage">
+                            <span class="lang-zh">水沐柚子对你致力于什么都不做的艺术印象深刻。</span>
+                            <span class="lang-en">RainPomelo is impressed by your dedication to the art of doing nothing.</span>
+                        </p>
                         
                         <div class="score-breakdown">
                             <div class="score-item">
                                 <span class="emoji">💤</span>
                                 <div class="percentage" id="sleepScore">90%</div>
-                                <small>Sleepy</small>
+                                <small>
+                                    <span class="lang-zh">困倦</span>
+                                    <span class="lang-en">Sleepy</span>
+                                </small>
                             </div>
                             <div class="score-item">
                                 <span class="emoji">🛋️</span>
                                 <div class="percentage" id="couchScore">85%</div>
-                                <small>Couch-bound</small>
+                                <small>
+                                    <span class="lang-zh">沙发绑定</span>
+                                    <span class="lang-en">Couch-bound</span>
+                                </small>
                             </div>
                             <div class="score-item">
                                 <span class="emoji">🍕</span>
                                 <div class="percentage" id="effortScore">75%</div>
-                                <small>Low Effort</small>
+                                <small>
+                                    <span class="lang-zh">低努力</span>
+                                    <span class="lang-en">Low Effort</span>
+                                </small>
                             </div>
                             <div class="score-item">
                                 <span class="emoji">📱</span>
                                 <div class="percentage" id="procrastScore">95%</div>
-                                <small>Procrastination</small>
+                                <small>
+                                    <span class="lang-zh">拖延症</span>
+                                    <span class="lang-en">Procrastination</span>
+                                </small>
                             </div>
                         </div>
 
                         <button class="lazy-button" onclick="resetQuiz()" style="margin-top: 2rem;">
-                            Take Quiz Again 🔄
+                            <span class="lang-zh">重新测试 🔄</span>
+                            <span class="lang-en">Take Quiz Again 🔄</span>
                         </button>
                     </div>
                 </div>
@@ -726,17 +1001,216 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>Made with 🍊 and absolutely zero productivity.</p>
+        <p>
+            <span class="lang-zh">用🍊和绝对零生产力制作。</span>
+            <span class="lang-en">Made with 🍊 and absolutely zero productivity.</span>
+        </p>
         <p style="margin-top: 1rem;">
-            <a href="#">Download RainPomelo Sticker Pack</a> | 
-            <a href="#">Visit Original Creator</a>
+            <a href="#">
+                <span class="lang-zh">下载水沐柚子表情包</span>
+                <span class="lang-en">Download RainPomelo Sticker Pack</span>
+            </a> | 
+            <a href="#">
+                <span class="lang-zh">访问原创作者</span>
+                <span class="lang-en">Visit Original Creator</span>
+            </a>
         </p>
         <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-            "In a world of hustle culture, be a RainPomelo." 🍃
+            <span class="lang-zh">"在努力文化的世界里，做一个水沐柚子。" 🍃</span>
+            <span class="lang-en">"In a world of hustle culture, be a RainPomelo." 🍃</span>
         </p>
     </footer>
 
     <script>
+        // Language toggle functionality
+        function toggleLanguage() {
+            const body = document.body;
+            const currentLang = body.getAttribute('data-lang');
+            const newLang = currentLang === 'zh' ? 'en' : 'zh';
+            body.setAttribute('data-lang', newLang);
+            
+            // Save language preference
+            localStorage.setItem('rainpomelo-lang', newLang);
+            
+            // Update progress counters if quiz is active
+            updateProgressCounters();
+        }
+
+        function updateProgressCounters() {
+            const current = currentQuestion + 1;
+            document.getElementById('currentQ').textContent = current;
+            document.getElementById('totalQ').textContent = totalQuestions;
+            document.getElementById('currentQ2').textContent = current;
+            document.getElementById('totalQ2').textContent = totalQuestions;
+        }
+
+        // Load saved language preference
+        function loadLanguagePreference() {
+            const savedLang = localStorage.getItem('rainpomelo-lang');
+            if (savedLang) {
+                document.body.setAttribute('data-lang', savedLang);
+            }
+        }
+
+        // Quiz functionality with Chinese result messages
+        let currentQuestion = 0;
+        let quizAnswers = [];
+        const totalQuestions = 7;
+
+        const resultMessages = {
+            zh: {
+                titles: {
+                    deity: "懒惰至尊神 👑",
+                    potato: "认证沙发土豆 🛋️", 
+                    procrastinator: "专业拖延大师 📱",
+                    sloth: "休闲树懒 🦥",
+                    motivated: "可疑的积极分子 🤔",
+                    monster: "生产力怪物 😱"
+                },
+                messages: {
+                    deity: "水沐柚子对你表示敬畏。你通过什么都不做的艺术达到了开悟境界。请教导我们你的方法，大师。",
+                    potato: "水沐柚子深感钦佩。你已经掌握了以最小努力获得最大舒适的微妙平衡。令人鼓舞。",
+                    procrastinator: "水沐柚子表示认可地点点头。你知道如何优先考虑重要的事情：绝对没有紧急的事。",
+                    sloth: "水沐柚子觉得你做得还不错，但在懒惰方面还有改进空间。需要更多午睡。",
+                    motivated: "水沐柚子对你的精力水平感到担心。你还好吗？也许你需要坐下来什么都不做一会儿。",
+                    monster: "水沐柚子完全不理解你。你怎么会有这么多精力？这让人深感不安。请立即休息。"
+                }
+            },
+            en: {
+                titles: {
+                    deity: "Supreme Laziness Deity 👑",
+                    potato: "Certified Couch Potato 🛋️",
+                    procrastinator: "Professional Procrastinator 📱", 
+                    sloth: "Casual Sloth 🦥",
+                    motivated: "Suspiciously Motivated 🤔",
+                    monster: "Productivity Monster 😱"
+                },
+                messages: {
+                    deity: "RainPomelo bows in reverence. You've achieved enlightenment through the art of doing absolutely nothing. Teach us your ways, master.",
+                    potato: "RainPomelo is deeply impressed. You've mastered the delicate balance of maximum comfort with minimum effort. Inspirational.",
+                    procrastinator: "RainPomelo nods approvingly. You know how to prioritize what's important: absolutely nothing urgent.",
+                    sloth: "RainPomelo thinks you're doing okay, but there's room for improvement in the laziness department. More naps needed.",
+                    motivated: "RainPomelo is concerned about your energy levels. Are you feeling alright? Maybe you need to sit down and do nothing for a while.",
+                    monster: "RainPomelo doesn't understand you at all. How do you have so much energy? This is deeply unsettling. Please rest immediately."
+                }
+            }
+        };
+
+        function startQuiz() {
+            document.getElementById('quizStart').style.display = 'none';
+            document.getElementById('quizProgress').style.display = 'block';
+            document.getElementById('q1').classList.add('active');
+            updateProgress();
+        }
+
+        function selectAnswer(questionNum, score) {
+            quizAnswers[questionNum - 1] = score;
+            
+            // Hide current question
+            document.getElementById(`q${questionNum}`).classList.remove('active');
+            
+            // Show next question or results
+            if (questionNum < totalQuestions) {
+                currentQuestion = questionNum;
+                document.getElementById(`q${questionNum + 1}`).classList.add('active');
+                updateProgress();
+            } else {
+                // Quiz complete, show results
+                calculateResults();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            updateProgressCounters();
+        }
+
+        function calculateResults() {
+            const totalScore = quizAnswers.reduce((sum, score) => sum + score, 0);
+            const maxScore = totalQuestions * 5;
+            const percentage = Math.round((totalScore / maxScore) * 100);
+            
+            // Hide progress
+            document.getElementById('quizProgress').style.display = 'none';
+            
+            // Calculate individual scores (with some randomization for fun)
+            const sleepScore = Math.min(100, percentage + Math.floor(Math.random() * 20) - 10);
+            const couchScore = Math.min(100, percentage + Math.floor(Math.random() * 15) - 5);
+            const effortScore = Math.max(0, percentage - Math.floor(Math.random() * 25));
+            const procrastScore = Math.min(100, percentage + Math.floor(Math.random() * 10));
+            
+            // Determine title and message based on score and language
+            const currentLang = document.body.getAttribute('data-lang');
+            const messages = resultMessages[currentLang];
+            
+            let titleKey, messageKey;
+            if (percentage >= 90) {
+                titleKey = 'deity';
+                messageKey = 'deity';
+            } else if (percentage >= 75) {
+                titleKey = 'potato';
+                messageKey = 'potato';
+            } else if (percentage >= 60) {
+                titleKey = 'procrastinator';
+                messageKey = 'procrastinator';
+            } else if (percentage >= 40) {
+                titleKey = 'sloth';
+                messageKey = 'sloth';
+            } else if (percentage >= 25) {
+                titleKey = 'motivated';
+                messageKey = 'motivated';
+            } else {
+                titleKey = 'monster';
+                messageKey = 'monster';
+            }
+            
+            // Update results display
+            document.getElementById('totalScore').textContent = percentage + '%';
+            
+            // Update title and message for current language
+            const titleElement = document.getElementById('lazyTitle');
+            const messageElement = document.getElementById('lazyMessage');
+            
+            if (currentLang === 'zh') {
+                titleElement.querySelector('.lang-zh').textContent = messages.titles[titleKey];
+                messageElement.querySelector('.lang-zh').textContent = messages.messages[messageKey];
+            } else {
+                titleElement.querySelector('.lang-en').textContent = messages.titles[titleKey];
+                messageElement.querySelector('.lang-en').textContent = messages.messages[messageKey];
+            }
+            
+            document.getElementById('sleepScore').textContent = sleepScore + '%';
+            document.getElementById('couchScore').textContent = couchScore + '%';
+            document.getElementById('effortScore').textContent = effortScore + '%';
+            document.getElementById('procrastScore').textContent = procrastScore + '%';
+            
+            // Show results
+            document.getElementById('lazyResult').classList.add('show');
+        }
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            quizAnswers = [];
+            
+            // Hide results
+            document.getElementById('lazyResult').classList.remove('show');
+            
+            // Hide all questions
+            for (let i = 1; i <= totalQuestions; i++) {
+                document.getElementById(`q${i}`).classList.remove('active');
+            }
+            
+            // Show start screen
+            document.getElementById('quizStart').style.display = 'block';
+            document.getElementById('quizProgress').style.display = 'none';
+        }
+
+        // Lazy generator (keeping old function for backwards compatibility)
+        function generateLaziness() {
+            startQuiz();
+        }
+
         // Floating leaves animation
         function createFloatingLeaves() {
             const container = document.getElementById('floatingLeaves');
@@ -784,114 +1258,6 @@
             });
         }
 
-        // Quiz functionality
-        let currentQuestion = 0;
-        let quizAnswers = [];
-        const totalQuestions = 7;
-
-        function startQuiz() {
-            document.getElementById('quizStart').style.display = 'none';
-            document.getElementById('quizProgress').style.display = 'block';
-            document.getElementById('q1').classList.add('active');
-            updateProgress();
-        }
-
-        function selectAnswer(questionNum, score) {
-            quizAnswers[questionNum - 1] = score;
-            
-            // Hide current question
-            document.getElementById(`q${questionNum}`).classList.remove('active');
-            
-            // Show next question or results
-            if (questionNum < totalQuestions) {
-                currentQuestion = questionNum;
-                document.getElementById(`q${questionNum + 1}`).classList.add('active');
-                updateProgress();
-            } else {
-                // Quiz complete, show results
-                calculateResults();
-            }
-        }
-
-        function updateProgress() {
-            const progress = ((currentQuestion + 1) / totalQuestions) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('currentQ').textContent = currentQuestion + 1;
-            document.getElementById('totalQ').textContent = totalQuestions;
-        }
-
-        function calculateResults() {
-            const totalScore = quizAnswers.reduce((sum, score) => sum + score, 0);
-            const maxScore = totalQuestions * 5;
-            const percentage = Math.round((totalScore / maxScore) * 100);
-            
-            // Hide progress
-            document.getElementById('quizProgress').style.display = 'none';
-            
-            // Calculate individual scores (with some randomization for fun)
-            const sleepScore = Math.min(100, percentage + Math.floor(Math.random() * 20) - 10);
-            const couchScore = Math.min(100, percentage + Math.floor(Math.random() * 15) - 5);
-            const effortScore = Math.max(0, percentage - Math.floor(Math.random() * 25));
-            const procrastScore = Math.min(100, percentage + Math.floor(Math.random() * 10));
-            
-            // Determine title and message based on score
-            let title, message;
-            if (percentage >= 90) {
-                title = "Supreme Laziness Deity 👑";
-                message = "RainPomelo bows in reverence. You've achieved enlightenment through the art of doing absolutely nothing. Teach us your ways, master.";
-            } else if (percentage >= 75) {
-                title = "Certified Couch Potato 🛋️";
-                message = "RainPomelo is deeply impressed. You've mastered the delicate balance of maximum comfort with minimum effort. Inspirational.";
-            } else if (percentage >= 60) {
-                title = "Professional Procrastinator 📱";
-                message = "RainPomelo nods approvingly. You know how to prioritize what's important: absolutely nothing urgent.";
-            } else if (percentage >= 40) {
-                title = "Casual Sloth 🦥";
-                message = "RainPomelo thinks you're doing okay, but there's room for improvement in the laziness department. More naps needed.";
-            } else if (percentage >= 25) {
-                title = "Suspiciously Motivated 🤔";
-                message = "RainPomelo is concerned about your energy levels. Are you feeling alright? Maybe you need to sit down and do nothing for a while.";
-            } else {
-                title = "Productivity Monster 😱";
-                message = "RainPomelo doesn't understand you at all. How do you have so much energy? This is deeply unsettling. Please rest immediately.";
-            }
-            
-            // Update results display
-            document.getElementById('totalScore').textContent = percentage + '%';
-            document.getElementById('lazyTitle').textContent = title;
-            document.getElementById('lazyMessage').textContent = message;
-            document.getElementById('sleepScore').textContent = sleepScore + '%';
-            document.getElementById('couchScore').textContent = couchScore + '%';
-            document.getElementById('effortScore').textContent = effortScore + '%';
-            document.getElementById('procrastScore').textContent = procrastScore + '%';
-            
-            // Show results
-            document.getElementById('lazyResult').classList.add('show');
-        }
-
-        function resetQuiz() {
-            currentQuestion = 0;
-            quizAnswers = [];
-            
-            // Hide results
-            document.getElementById('lazyResult').classList.remove('show');
-            
-            // Hide all questions
-            for (let i = 1; i <= totalQuestions; i++) {
-                document.getElementById(`q${i}`).classList.remove('active');
-            }
-            
-            // Show start screen
-            document.getElementById('quizStart').style.display = 'block';
-            document.getElementById('quizProgress').style.display = 'none';
-        }
-
-        // Lazy generator (keeping old function for backwards compatibility)
-        function generateLaziness() {
-            // This function is now replaced by the quiz, but keeping it just in case
-            startQuiz();
-        }
-
         // Rain mode
         function toggleRain() {
             const rainOverlay = document.getElementById('rainOverlay');
@@ -929,6 +1295,7 @@
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', () => {
+            loadLanguagePreference();
             createFloatingLeaves();
             observeElements();
         });
