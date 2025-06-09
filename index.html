@@ -5,8 +5,480 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seedcher Shrine | 好煩喔但很可愛</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css"> <!-- External CSS -->
+    
+    <style>
+        /* --- Global Styles & Variables --- */
+        :root {
+            --bg-main: #f4f8f7;
+            --bg-secondary: #ffffff;
+            --primary-color: #78c2ad;
+            --secondary-color: #5b8e7d;
+            --text-main: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --border-color: #e0e0e0;
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Quicksand', 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* --- Language Toggling --- */
+        /* By default, hide English text when Chinese is active */
+        body[data-lang="zh"] .lang-en {
+            display: none;
+        }
+        /* By default, hide Chinese text when English is active */
+        body[data-lang="en"] .lang-zh {
+            display: none;
+        }
+
+        /* --- Utility & Interactive Buttons --- */
+        .language-toggle, .rain-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow-light);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .rain-toggle {
+            right: auto;
+            left: 20px;
+        }
+
+        .language-toggle:hover, .rain-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow-medium);
+        }
+
+        /* --- Floating Background Elements --- */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .float-element {
+            position: absolute;
+            color: var(--primary-color);
+            opacity: 0.15;
+            font-size: 2rem;
+            animation: floatUp 25s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+                opacity: 0.15;
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+
+        /* --- Rain Effect --- */
+        .rain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: url('https://www.transparenttextures.com/patterns/clean-gray-paper.png');
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .rain-overlay.active {
+            opacity: 0.1;
+            animation: rain 0.5s linear infinite;
+        }
+
+        @keyframes rain {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 20% 100%; }
+        }
+
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-character {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .character-main {
+            font-size: 6rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .character-emotions {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .emotion-bubble {
+            background: var(--bg-secondary);
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px var(--shadow-light);
+            animation: popIn 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .emotion-bubble:nth-child(1) { animation-delay: 0.5s; }
+        .emotion-bubble:nth-child(2) { animation-delay: 0.8s; }
+        .emotion-bubble:nth-child(3) { animation-delay: 1.1s; }
+
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px var(--shadow-medium);
+        }
+
+        .cta-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+        }
+
+        .cta-secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* --- Main Content --- */
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* About Section */
+        .about-card {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow-light);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .about-avatar {
+            font-size: 5rem;
+            text-align: center;
+        }
+
+        .bio-list {
+            list-style: none;
+        }
+
+        .bio-list li {
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        /* GIF Gallery */
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gif-item {
+            background-color: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 20px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gif-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+
+        .gif-placeholder {
+            font-size: 4rem;
+            background-color: var(--bg-main);
+            width: 100%;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .mood-tag {
+            display: inline-block;
+            background-color: #eaf6f3;
+            color: var(--secondary-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Quiz Section --- */
+        .lazy-generator {
+            background-color: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow-light);
+            text-align: center;
+        }
+
+        .question-card {
+            display: none; /* Hide questions by default */
+        }
+
+        .question-card.active {
+            display: block; /* Show active question */
+        }
+
+        .question-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .answer-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .answer-btn:hover {
+            background-color: #eaf6f3;
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        /* Quiz Progress Bar */
+        #quizProgress {
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: var(--border-color);
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            transition: width 0.4s ease-out;
+        }
+
+        /* Quiz Result */
+        .generator-result {
+            display: none; /* Hidden by default */
+        }
+
+        .score-display {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 1rem 0;
+        }
+
+        .score-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .score-item {
+            background-color: var(--bg-main);
+            padding: 1rem;
+            border-radius: 10px;
+            width: 120px;
+        }
+        .score-item .emoji { font-size: 2rem; }
+        .score-item .percentage { font-size: 1.5rem; font-weight: 600; color: var(--secondary-color); }
+        .score-item small { color: var(--text-secondary); }
+
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--secondary-color);
+            color: #eaf6f3;
+            text-align: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .footer a {
+            color: white;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Media Queries for Responsiveness --- */
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-actions {
+                flex-direction: column;
+            }
+        }
+        @media (min-width: 768px) {
+            .about-card {
+                flex-direction: row;
+                align-items: center;
+            }
+            .about-avatar {
+                flex-shrink: 0;
+            }
+        }
+    </style>
 </head>
+
 <body data-lang="zh">
     <!-- Floating Elements Background -->
     <div class="floating-elements" id="floatingElements"></div>
@@ -253,13 +725,13 @@
                         </button>
                     </div>
 
-                    <div id="quizProgress" style="display: none;">
+                    <div id="quizProgress">
                         <div class="progress-bar">
                             <div class="progress-fill" id="progressFill"></div>
                         </div>
                         <p style="color: var(--text-secondary); margin-bottom: 2rem;">
                             <span class="lang-zh">第 <span id="currentQ">1</span> 題，共 <span id="totalQ">7</span> 題</span>
-                            <span class="lang-en"><span id="currentQ2">1</span> of <span id="totalQ2">7</span> questions</span>
+                            <span class="lang-en">Question <span id="currentQ2">1</span> of <span id="totalQ2">7</span></span>
                         </p>
                     </div>
 
@@ -514,11 +986,11 @@
                 <span class="lang-en">Made with 🌱 and absolutely zero productivity</span>
             </p>
             <p style="margin-top: 1.5rem;">
-                <a href="https://line.me/stickers" style="margin: 0 1rem;">
+                <a href="https://store.line.me/stickershop/product/1460185/en" target="_blank" rel="noopener noreferrer" style="margin: 0 1rem;">
                     <span class="lang-zh">下載 Seedcher 貼圖包</span>
                     <span class="lang-en">Download Seedcher Sticker Pack</span>
                 </a> | 
-                <a href="https://example.com" style="margin: 0 1rem;">
+                <a href="https://www.instagram.com/pomelokun/" target="_blank" rel="noopener noreferrer" style="margin: 0 1rem;">
                     <span class="lang-zh">訪問原創作者</span>
                     <span class="lang-en">Visit Original Creator</span>
                 </a>
@@ -530,6 +1002,165 @@
         </div>
     </footer>
 
-    <script src="scripts.js"></script> <!-- External JavaScript -->
+    <script>
+        // Wait for the DOM to be fully loaded before running scripts
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Language Toggle ---
+            window.toggleLanguage = function() {
+                const body = document.body;
+                const currentLang = body.getAttribute('data-lang');
+                const newLang = currentLang === 'zh' ? 'en' : 'zh';
+                body.setAttribute('data-lang', newLang);
+            };
+
+            // --- Rain Toggle ---
+            window.toggleRain = function() {
+                document.getElementById('rainOverlay').classList.toggle('active');
+            };
+
+            // --- Scroll to Content ---
+            window.scrollToContent = function() {
+                document.querySelector('.content').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            };
+
+            // --- Floating Background Elements ---
+            const floatingContainer = document.getElementById('floatingElements');
+            const elements = ['🌱', '🟢', '💤', '💭'];
+            if (floatingContainer) {
+                for (let i = 0; i < 20; i++) {
+                    const el = document.createElement('div');
+                    el.classList.add('float-element');
+                    el.innerText = elements[i % elements.length];
+                    el.style.left = `${Math.random() * 100}vw`;
+                    el.style.animationDuration = `${15 + Math.random() * 15}s`;
+                    el.style.animationDelay = `${Math.random() * 10}s`;
+                    el.style.fontSize = `${1 + Math.random() * 1.5}rem`;
+                    floatingContainer.appendChild(el);
+                }
+            }
+
+
+            // --- Quiz Logic ---
+            const quizStartEl = document.getElementById('quizStart');
+            const quizProgressEl = document.getElementById('quizProgress');
+            const lazyResultEl = document.getElementById('lazyResult');
+            const questionCards = document.querySelectorAll('.question-card');
+            const totalQuestions = questionCards.length;
+
+            // Quiz state
+            let currentQuestionIndex = 0;
+            let score = 0;
+            const MAX_SCORE_PER_Q = 5;
+
+            // UI Elements for quiz
+            const progressFill = document.getElementById('progressFill');
+            const currentQSpan = document.getElementById('currentQ');
+            const currentQSpan2 = document.getElementById('currentQ2');
+
+
+            window.startQuiz = function() {
+                // Scroll to the quiz section if not already visible
+                document.getElementById('generator').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Reset state
+                score = 0;
+                currentQuestionIndex = 0;
+
+                // Update UI
+                quizStartEl.style.display = 'none';
+                lazyResultEl.style.display = 'none';
+                questionCards.forEach(card => card.classList.remove('active'));
+
+                // Show first question and progress bar
+                quizProgressEl.style.display = 'block';
+                if(questionCards[0]) questionCards[0].classList.add('active');
+                updateProgress();
+            };
+
+            window.selectAnswer = function(questionNum, points) {
+                score += points;
+                const currentCard = document.getElementById(`q${questionNum}`);
+                
+                if (currentCard) {
+                    currentCard.classList.remove('active');
+                }
+
+                currentQuestionIndex++;
+
+                if (currentQuestionIndex < totalQuestions) {
+                    const nextCard = document.getElementById(`q${questionNum + 1}`);
+                    if(nextCard) nextCard.classList.add('active');
+                    updateProgress();
+                } else {
+                    showResults();
+                }
+            };
+            
+            function updateProgress() {
+                const progressPercent = ((currentQuestionIndex) / totalQuestions) * 100;
+                progressFill.style.width = `${progressPercent}%`;
+                if(currentQSpan) currentQSpan.textContent = currentQuestionIndex + 1;
+                if(currentQSpan2) currentQSpan2.textContent = currentQuestionIndex + 1;
+            }
+
+            function showResults() {
+                quizProgressEl.style.display = 'none';
+                
+                const totalMaxScore = totalQuestions * MAX_SCORE_PER_Q;
+                const finalPercentage = Math.round((score / totalMaxScore) * 100);
+
+                // Update result display
+                document.getElementById('totalScore').textContent = `${finalPercentage}%`;
+                
+                const titleZh = lazyResultEl.querySelector('#lazyTitle .lang-zh');
+                const titleEn = lazyResultEl.querySelector('#lazyTitle .lang-en');
+                const messageZh = lazyResultEl.querySelector('#lazyMessage .lang-zh');
+                const messageEn = lazyResultEl.querySelector('#lazyMessage .lang-en');
+
+                if (finalPercentage >= 85) {
+                    titleZh.textContent = "認證沙發嫩芽王";
+                    titleEn.textContent = "Certified Couch Sprout King";
+                    messageZh.textContent = "你不是懶，你是在進行一場名為『靜止』的行為藝術。Seedcher 對你深感敬佩。";
+                    messageEn.textContent = "You're not lazy, you're performing performance art called 'stillness'. Seedcher deeply admires you.";
+                } else if (finalPercentage >= 60) {
+                    titleZh.textContent = "資深賴床學家";
+                    titleEn.textContent = "Senior Bed-Dwelling Expert";
+                    messageZh.textContent = "你精通拖延的藝術，但偶爾也會被生產力短暫附身。";
+                    messageEn.textContent = "You've mastered the art of procrastination, but are occasionally possessed by productivity.";
+                } else if (finalPercentage >= 30) {
+                    titleZh.textContent = "潛力發芽種子";
+                    titleEn.textContent = "Potential Sprouting Seed";
+                    messageZh.textContent = "你身上還殘留著『勤奮』的氣息，但別擔心，多跟 Seedcher 學習就能治好。";
+                    messageEn.textContent = "You still have a scent of 'diligence' on you. Don't worry, you can be cured by learning from Seedcher.";
+                } else {
+                    titleZh.textContent = "過度活躍的嫩芽";
+                    titleEn.textContent = "Overly Active Sprout";
+                    messageZh.textContent = "你...是不是走錯棚了？你的能量等級讓 Seedcher 感到害怕。";
+                    messageEn.textContent = "Are... you in the wrong place? Your energy levels are scaring Seedcher.";
+                }
+                
+                // Randomize breakdown scores for fun
+                document.getElementById('sleepScore').textContent = `${Math.max(60, finalPercentage - Math.floor(Math.random() * 10))}%`;
+                document.getElementById('couchScore').textContent = `${Math.max(55, finalPercentage - Math.floor(Math.random() * 15))}%`;
+                document.getElementById('effortScore').textContent = `${100 - finalPercentage + Math.floor(Math.random() * 5)}%`; // Inverted
+                document.getElementById('procrastScore').textContent = `${Math.min(99, finalPercentage + Math.floor(Math.random() * 10))}%`;
+
+
+                lazyResultEl.style.display = 'block';
+            }
+
+            window.resetQuiz = function() {
+                lazyResultEl.style.display = 'none';
+                quizStartEl.style.display = 'block';
+            };
+
+            // Initial setup for quiz total questions display
+            document.getElementById('totalQ').textContent = totalQuestions;
+            document.getElementById('totalQ2').textContent = totalQuestions;
+        });
+    </script>
 </body>
 </html>
